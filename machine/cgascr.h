@@ -17,6 +17,7 @@
 
 class CGA_Screen {
 private:
+void move_up();
 /* Add your code here */ 
 
 public:
@@ -24,6 +25,10 @@ public:
 	CGA_Screen()
 /* Add your code here */ 
 {}
+	void show (int x, int y, char c, unsigned char attrib);
+	void setpos (int x, int y);
+	void getpos (int &x, int &y);
+	void print (char* text, int length, unsigned char attrib);
 
 /* Add your code here */ 
 };

@@ -17,6 +17,7 @@
 /* GLOBAL VARIABLES */
 
 extern CGA_Stream kout;
+
 /* Add your code here */ 
  
 void Application::action()

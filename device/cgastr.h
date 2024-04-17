@@ -23,6 +23,7 @@ class CGA_Stream
 public:
 	CGA_Stream(CGA_Stream &copy) = delete; // prevent copying
 /* Add your code here */ 
+
 };
 
 #endif
