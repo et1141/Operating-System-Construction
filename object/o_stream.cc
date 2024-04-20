@@ -18,56 +18,58 @@
 
 #include "object/o_stream.h"
 
-O_Stream& O_Stream::operator<<(unsigned char c)
+O_Stream &O_Stream::operator<<(unsigned char c)
 {
     put(static_cast<char>(c));
     return *this;
 }
 
-O_Stream& O_Stream::operator<<(char c)
+O_Stream &O_Stream::operator<<(char c)
 {
     put(c);
     return *this;
 }
 
-O_Stream& O_Stream::operator<<(unsigned short number)
+O_Stream &O_Stream::operator<<(unsigned short number)
 {
     return printNumber(static_cast<unsigned long>(number));
 }
 
-O_Stream& O_Stream::operator<<(short number)
+O_Stream &O_Stream::operator<<(short number)
 {
     return printNumber(static_cast<long>(number));
 }
 
-O_Stream& O_Stream::operator<<(unsigned int number)
+O_Stream &O_Stream::operator<<(unsigned int number)
 {
     return printNumber(static_cast<unsigned long>(number));
 }
 
-O_Stream& O_Stream::operator<<(int number)
+O_Stream &O_Stream::operator<<(int number)
 {
     return printNumber(static_cast<long>(number));
 }
 
-O_Stream& O_Stream::operator<<(unsigned long number)
+O_Stream &O_Stream::operator<<(unsigned long number)
 {
     return printNumber(number);
 }
 
-O_Stream& O_Stream::operator<<(long number)
+O_Stream &O_Stream::operator<<(long number)
 {
     return printNumber(number);
 }
 
-O_Stream& O_Stream::operator<<(void* pointer) {
-    const char* hexDigits = "0123456789abcdef";
+O_Stream &O_Stream::operator<<(void *pointer)
+{
+    const char *hexDigits = "0123456789abcdef";
     char buffer[17];
-    char* pos = buffer + sizeof(buffer) - 1;
-    *pos-- = '\0';  // Null-terminate the string
+    char *pos = buffer + sizeof(buffer) - 1;
+    *pos-- = '\0'; // Null-terminate the string
 
     unsigned long addr = reinterpret_cast<unsigned long>(pointer);
-    do {
+    do
+    {
         *pos-- = hexDigits[addr & 0xf];
         addr >>= 4;
     } while (addr != 0);
@@ -79,7 +81,7 @@ O_Stream& O_Stream::operator<<(void* pointer) {
     return *this;
 }
 
-O_Stream& O_Stream::operator<<(const char *text)
+O_Stream &O_Stream::operator<<(const char *text)
 {
     for (int i = 0; text[i] != '\0'; i++)
     {
@@ -88,7 +90,7 @@ O_Stream& O_Stream::operator<<(const char *text)
     return *this;
 }
 
-O_Stream& O_Stream::operator<<(O_Stream &(*fkt)(O_Stream &))
+O_Stream &O_Stream::operator<<(O_Stream &(*fkt)(O_Stream &))
 {
     return fkt(*this);
 }
@@ -122,11 +124,16 @@ O_Stream &O_Stream::printNumber(unsigned long number)
     return *this;
 }
 
-O_Stream& O_Stream::printNumber(long number) {
-    if (number < 0) {
+O_Stream &O_Stream::printNumber(long number)
+{
+    if (number < 0)
+    {
         put('-');
         return printNumber(static_cast<unsigned long>(-number));
-    } else {
+    }
+    else
+    {
         return printNumber(static_cast<unsigned long>(number));
     }
 }
+

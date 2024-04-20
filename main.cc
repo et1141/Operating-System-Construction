@@ -1,8 +1,9 @@
 /* Add your code here */ 
 #include "machine/cgascr.h"
-
+#include "object/o_stream.h"
 int main()
 {	
+	// O_Stream kout;
 	CGA_Screen screen; 
 	int x,y;
 
