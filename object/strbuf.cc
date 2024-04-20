@@ -24,7 +24,7 @@ Stringbuffer::Stringbuffer() : lastIndex(-1), numChars(0)
 
 Stringbuffer::~Stringbuffer()
 {
-
+    // TODO: flush() and clear() ?
 }
 
 void Stringbuffer::put (char c)
