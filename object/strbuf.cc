@@ -16,3 +16,37 @@
 #include "object/strbuf.h"
 
 /* Add your code here */ 
+
+Stringbuffer::Stringbuffer() : lastIndex(-1), numChars(0)
+{
+    clearBuffer();
+}
+
+Stringbuffer::~Stringbuffer()
+{
+
+}
+
+void Stringbuffer::put (char c)
+{
+    if(numChars < BUFFER_SIZE)
+    {
+        buffer[lastIndex++]=c;
+        numChars++;
+    }
+    else // buffer overflow
+    {
+        flush();
+        clearBuffer();
+        buffer[lastIndex++]=c;
+        numChars++;
+    }
+}
+
+void Stringbuffer::clearBuffer() {
+    for (int i = 0; i < BUFFER_SIZE; ++i) {
+        buffer[i] = '\0'; 
+    }
+    numChars = 0; 
+    lastIndex = -1; 
+}
