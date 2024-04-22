@@ -19,6 +19,14 @@
 #include "object/o_stream.h"
 
 /**
+ * @brief Default constructor for O_Stream.
+ * Initializes number_system to 10.
+ */
+O_Stream::O_Stream() : number_system(10)
+{
+}
+
+/**
  * @brief Overloaded operator<< for unsigned char.
  * This function casts the unsigned char to char and calls the put function.
  * @param c The unsigned char to be printed.
@@ -224,7 +232,7 @@ O_Stream &O_Stream::printNumber(long number)
  * @param os The O_Stream object to be manipulated.
  * @return A reference to the O_Stream object.
  */
-O_Stream &O_Stream::endl(O_Stream &os)
+O_Stream &endl(O_Stream &os)
 {
     os.flush();
     return os;
@@ -277,4 +285,3 @@ O_Stream &hex(O_Stream &os)
     os.number_system = 16;
     return os;
 }
-

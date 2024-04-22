@@ -37,8 +37,3 @@ void CGA_Stream::flush() {
     
     clearBuffer(); // Clear the buffer after printing
 }
-
-void CGA_Stream::clearBuffer() {
-    Stringbuffer::clearBuffer();
-    // Additional CGA-specific buffer clearing logic, if needed
-}

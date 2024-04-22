@@ -28,7 +28,12 @@ private:
 	O_Stream &printNumber(unsigned long number);
 	O_Stream &printNumber(long number);
 
+protected:
+	virtual void flush() = 0;
+
 public:
+
+	O_Stream();
 	O_Stream(const O_Stream &copy) = delete; // prevent copying
 
 	O_Stream &operator<<(unsigned char c);

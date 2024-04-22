@@ -6,12 +6,14 @@
 
 class CGA_Stream : protected O_Stream, public CGA_Screen {
 public:
-    void flush() override;
-    void clearBuffer();
 
-    private:
-        int cursorRow = 0;
-    int cursorCol = 0;
+    using O_Stream::operator<<;
+
+    void flush() override;
+
+private:
+int cursorRow = 0;
+int cursorCol = 0;
 };
 
 #endif // CGASTR_H
