@@ -19,7 +19,6 @@
 class Stringbuffer {
 public:
 	Stringbuffer(const Stringbuffer &copy) = delete; // prevent copying
-/* Add your code here */ 
 	Stringbuffer();
 	
 	virtual ~Stringbuffer();

@@ -22,7 +22,6 @@
 #include "object/strbuf.h"
 
 class O_Stream : protected Stringbuffer
-/* Add your code here */
 {
 private:
 	int number_system;
@@ -31,7 +30,6 @@ private:
 
 public:
 	O_Stream(const O_Stream &copy) = delete; // prevent copying
-											 /* Add your code here */
 
 	O_Stream &operator<<(unsigned char c);
 	O_Stream &operator<<(char c);

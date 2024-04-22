@@ -18,48 +18,102 @@
 
 #include "object/o_stream.h"
 
+/**
+ * @brief Overloaded operator<< for unsigned char.
+ * This function casts the unsigned char to char and calls the put function.
+ * @param c The unsigned char to be printed.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::operator<<(unsigned char c)
 {
     put(static_cast<char>(c));
     return *this;
 }
 
+/**
+ * @brief Overloaded operator<< for char.
+ * This function calls the put function.
+ * @param c The char to be printed.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::operator<<(char c)
 {
     put(c);
     return *this;
 }
 
+/**
+ * @brief Overloaded operator<< for unsigned short.
+ * This function casts the unsigned short to unsigned long and calls the printNumber function.
+ * @param number The unsigned short to be printed.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::operator<<(unsigned short number)
 {
     return printNumber(static_cast<unsigned long>(number));
 }
 
+/**
+ * @brief Overloaded operator<< for short.
+ * This function casts the short to long and calls the printNumber function.
+ * @param number The short to be printed.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::operator<<(short number)
 {
     return printNumber(static_cast<long>(number));
 }
 
+/**
+ * @brief Overloaded operator<< for unsigned int.
+ * This function casts the unsigned int to unsigned long and calls the printNumber function.
+ * @param number The unsigned int to be printed.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::operator<<(unsigned int number)
 {
     return printNumber(static_cast<unsigned long>(number));
 }
 
+/**
+ * @brief Overloaded operator<< for int.
+ * This function casts the int to long and calls the printNumber function.
+ * @param number The int to be printed.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::operator<<(int number)
 {
     return printNumber(static_cast<long>(number));
 }
 
+/**
+ * @brief Overloaded operator<< for unsigned long.
+ * This function calls the printNumber function.
+ * @param number The unsigned long to be printed.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::operator<<(unsigned long number)
 {
     return printNumber(number);
 }
 
+/**
+ * @brief Overloaded operator<< for long.
+ * This function calls the printNumber function.
+ * @param number The long to be printed.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::operator<<(long number)
 {
     return printNumber(number);
 }
 
+/**
+ * @brief Overloaded operator<< for void pointer.
+ * This function converts the pointer to a hexadecimal string and calls the operator<< function.
+ * @param pointer The pointer to be printed.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::operator<<(void *pointer)
 {
     const char *hexDigits = "0123456789abcdef";
@@ -81,6 +135,12 @@ O_Stream &O_Stream::operator<<(void *pointer)
     return *this;
 }
 
+/**
+ * @brief Overloaded operator<< for const char pointer.
+ * This function prints the string pointed to by the pointer.
+ * @param text The string to be printed.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::operator<<(const char *text)
 {
     for (int i = 0; text[i] != '\0'; i++)
@@ -90,11 +150,23 @@ O_Stream &O_Stream::operator<<(const char *text)
     return *this;
 }
 
+/**
+ * @brief Overloaded operator<< for function pointer.
+ * This function calls the function pointed to by the function pointer.
+ * @param fkt The function to be called.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::operator<<(O_Stream &(*fkt)(O_Stream &))
 {
     return fkt(*this);
 }
 
+/**
+ * @brief Prints an unsigned long number.
+ * This function converts the number to a string and calls the operator<< function.
+ * @param number The number to be printed.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::printNumber(unsigned long number)
 {
     char buffer[65];
@@ -124,6 +196,13 @@ O_Stream &O_Stream::printNumber(unsigned long number)
     return *this;
 }
 
+/**
+ * @brief Prints a long number.
+ * This function converts the number to a string and calls the operator<< function.
+ * If the number is negative, it prints a '-' before the number.
+ * @param number The number to be printed.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::printNumber(long number)
 {
     if (number < 0)
@@ -139,30 +218,60 @@ O_Stream &O_Stream::printNumber(long number)
 
 // Manipulators
 
+/**
+ * @brief Manipulator function for endl.
+ * This function flushes the O_Stream object.
+ * @param os The O_Stream object to be manipulated.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::endl(O_Stream &os)
 {
     os.flush();
     return os;
 }
 
+/**
+ * @brief Manipulator function for bin.
+ * This function sets the number system of the O_Stream object to binary.
+ * @param os The O_Stream object to be manipulated.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::bin(O_Stream &os)
 {
     os.number_system = 2;
     return os;
 }
 
+/**
+ * @brief Manipulator function for oct.
+ * This function sets the number system of the O_Stream object to octal.
+ * @param os The O_Stream object to be manipulated.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::oct(O_Stream &os)
 {
     os.number_system = 8;
     return os;
 }
 
+/**
+ * @brief Manipulator function for dec.
+ * This function sets the number system of the O_Stream object to decimal.
+ * @param os The O_Stream object to be manipulated.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::dec(O_Stream &os)
 {
     os.number_system = 10;
     return os;
 }
 
+/**
+ * @brief Manipulator function for hex.
+ * This function sets the number system of the O_Stream object to hexadecimal.
+ * @param os The O_Stream object to be manipulated.
+ * @return A reference to the O_Stream object.
+ */
 O_Stream &O_Stream::hex(O_Stream &os)
 {
     os.number_system = 16;

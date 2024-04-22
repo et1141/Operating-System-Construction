@@ -19,7 +19,6 @@ class CGA_Screen
 {
 private:
 	void move_up();
-	/* Add your code here */
 
 public:
 	CGA_Screen(const CGA_Screen &copy) = delete; // prevent copying
