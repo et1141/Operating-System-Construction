@@ -236,7 +236,7 @@ O_Stream &O_Stream::endl(O_Stream &os)
  * @param os The O_Stream object to be manipulated.
  * @return A reference to the O_Stream object.
  */
-O_Stream &O_Stream::bin(O_Stream &os)
+O_Stream &bin(O_Stream &os)
 {
     os.number_system = 2;
     return os;
@@ -248,7 +248,7 @@ O_Stream &O_Stream::bin(O_Stream &os)
  * @param os The O_Stream object to be manipulated.
  * @return A reference to the O_Stream object.
  */
-O_Stream &O_Stream::oct(O_Stream &os)
+O_Stream &oct(O_Stream &os)
 {
     os.number_system = 8;
     return os;
@@ -260,7 +260,7 @@ O_Stream &O_Stream::oct(O_Stream &os)
  * @param os The O_Stream object to be manipulated.
  * @return A reference to the O_Stream object.
  */
-O_Stream &O_Stream::dec(O_Stream &os)
+O_Stream &dec(O_Stream &os)
 {
     os.number_system = 10;
     return os;
@@ -272,7 +272,7 @@ O_Stream &O_Stream::dec(O_Stream &os)
  * @param os The O_Stream object to be manipulated.
  * @return A reference to the O_Stream object.
  */
-O_Stream &O_Stream::hex(O_Stream &os)
+O_Stream &hex(O_Stream &os)
 {
     os.number_system = 16;
     return os;

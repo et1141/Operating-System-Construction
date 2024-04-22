@@ -44,11 +44,17 @@ public:
 	O_Stream &operator<<(O_Stream &(*fkt)(O_Stream &));
 
 	// Manipulator functions
-	O_Stream &endl(O_Stream &os);
-	O_Stream &bin(O_Stream &os);
-	O_Stream &oct(O_Stream &os);
-	O_Stream &dec(O_Stream &os);
-	O_Stream &hex(O_Stream &os);
+	friend O_Stream &endl(O_Stream &os);
+	friend O_Stream &bin(O_Stream &os);
+	friend O_Stream &oct(O_Stream &os);
+	friend O_Stream &dec(O_Stream &os);
+	friend O_Stream &hex(O_Stream &os);
 };
+
+O_Stream &endl(O_Stream &os);
+O_Stream &bin(O_Stream &os);
+O_Stream &oct(O_Stream &os);
+O_Stream &dec(O_Stream &os);
+O_Stream &hex(O_Stream &os);
 
 #endif
