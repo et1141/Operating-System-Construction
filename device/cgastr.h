@@ -1,29 +1,17 @@
-/*****************************************************************************/
-/* Operating-System Construction                                             */
-/*---------------------------------------------------------------------------*/
-/*                                                                           */
-/*                         C G A _ S T R E A M                               */
-/*                                                                           */
-/*---------------------------------------------------------------------------*/
-/* The CGA_Stream class allows to print different data types as text strings */
-/* to a PC's CGA screen.                                                     */
-/* For attributes/colors and cursor positioning use the methods of class     */
-/* CGA_Screen.                                                               */
-/*****************************************************************************/
-
-#ifndef __cgastr_include__
-#define __cgastr_include__
+#ifndef CGASTR_H
+#define CGASTR_H
 
 #include "object/o_stream.h"
 #include "machine/cgascr.h"
 
-class CGA_Stream
-/* Add your code here */ 
-{
+class CGA_Stream : protected O_Stream, public CGA_Screen {
 public:
-	CGA_Stream(CGA_Stream &copy) = delete; // prevent copying
-/* Add your code here */ 
+    void flush() override;
+    void clearBuffer();
 
+    private:
+        int cursorRow = 0;
+    int cursorCol = 0;
 };
 
-#endif
+#endif // CGASTR_H
