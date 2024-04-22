@@ -28,9 +28,9 @@ public:
 
 	virtual void flush() = 0;
 
-private:
-	void clearBuffer();
+protected:
 	
+	void clearBuffer();
 	static const int BUFFER_SIZE=100;
 	char buffer[BUFFER_SIZE];
 	int lastIndex;

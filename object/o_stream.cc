@@ -137,3 +137,35 @@ O_Stream &O_Stream::printNumber(long number)
     }
 }
 
+// Manipulators
+
+O_Stream &O_Stream::endl(O_Stream &os)
+{
+    os.flush();
+    return os;
+}
+
+O_Stream &O_Stream::bin(O_Stream &os)
+{
+    os.number_system = 2;
+    return os;
+}
+
+O_Stream &O_Stream::oct(O_Stream &os)
+{
+    os.number_system = 8;
+    return os;
+}
+
+O_Stream &O_Stream::dec(O_Stream &os)
+{
+    os.number_system = 10;
+    return os;
+}
+
+O_Stream &O_Stream::hex(O_Stream &os)
+{
+    os.number_system = 16;
+    return os;
+}
+
