@@ -34,6 +34,7 @@ private:
 	struct kbd_cmd {
 		enum { set_led = 0xed, set_speed = 0xf3 };
 	};
+
 	enum { cpu_reset = 0xfe };
 
 	// LED names

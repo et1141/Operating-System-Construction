@@ -250,7 +250,7 @@ Key Keyboard_Controller::key_hit()
 
     //key decoding is not completed yet (code was not mapped to ascii yet)
     while (!done) {
-        //wait for next scan code
+        //wait for next scan codegit 
         while (!(ctrl_port.inb() & 0x01));
 
         //read the next scan code from the data port
@@ -300,10 +300,22 @@ void Keyboard_Controller::reboot()
 
 void Keyboard_Controller::set_repeat_rate(int speed, int delay)
 {
-/* Add your code here */ 
- 
-/* Add your code here */ 
- 
+	int status;
+	do {
+		status =
+		    ctrl_port.inb(); // wait until last command is processed
+	} while ((status & inpb) != 0); //inpb(0x02) is set to 1 as long as the keyboard controller has not yet fetched  a character writen by cpu
+
+	data_port.outb(kbd_cmd::set_speed);
+
+	do {
+		status =
+		    ctrl_port.inb(); // wait until last command is processed
+	} while ((status & inpb) != 0); 
+
+	int const mask = (speed & 0x1f) |delay << 5;
+    data_port.outb(mask);
+
 }
 
 // SET_LED: sets or clears the specified LED
@@ -318,16 +330,22 @@ void Keyboard_Controller::set_led(char led, bool on)
 	} while ((status & inpb) != 0);
 
 	//2. then write the byte (command code or user data) to the data port.
-	data_port.outb(0xed);
+	data_port.outb(kbd_cmd::set_led);
 	//3. Then you should wait for a response from the keyboard controller (outb) and check whether the output buffer contains the acknowledgment code 0xfa (ACK). Formally, only then the next byte may be sent. Note that after each byte an ACK is returned – i.e. one after sending the command code, and another one after sending the user data. 
     //Note that while a clean solution would wait for an ACK after every command code, it is non-trivial to achieve a fully standard-conforming implementation. Correctly waiting for an ACK is difficult, as it may be interwoven with or squashed by subsequent key presses. 
 	//Therefore it is okay to simply ignore the acknowledgment byte.
+	do{
+		status = ctrl_port.inb();
+	}while ((status& inpb) !=0);
+	//skipping ack check
 
 	//4. sending the user data. 
-/* Add your code here */ 
-	//do {
-	//	status =
-	//	    ctrl_port.inb(); // wait until last command is processed
-	//} while ((status & inpb) != 0);
-	data_port.outb(7); 
+	if (on){
+		leds=leds|led;
+	}
+	else 
+		leds = leds & ~led;
+	leds=leds & 0x7;
+
+	data_port.outb(leds); 
 }
