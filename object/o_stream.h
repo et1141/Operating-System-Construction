@@ -21,35 +21,45 @@
 
 #include "object/strbuf.h"
 
-class O_Stream : Stringbuffer
-/* Add your code here */ 
+class O_Stream : protected Stringbuffer
 {
-private: 
-	 int number_system;
-	O_Stream& printNumber(unsigned long number);
-    O_Stream& printNumber(long number);
+private:
+	int number_system;
+	O_Stream &printNumber(unsigned long number);
+	O_Stream &printNumber(long number);
+
+protected:
+	virtual void flush() = 0;
+
 public:
+
+	O_Stream();
 	O_Stream(const O_Stream &copy) = delete; // prevent copying
-/* Add your code here */ 
-	
-	O_Stream& operator<< (unsigned char c);
-	O_Stream& operator<< (char c);
-	O_Stream& operator<< (unsigned short number);
-	O_Stream& operator<< (short number);
-	O_Stream& operator<< (unsigned int number);
-	O_Stream& operator<< (int number);
-	O_Stream& operator<< (unsigned long number);
-	O_Stream& operator<< (long number);
-    O_Stream& operator<<(void* pointer);
-    O_Stream& operator<<(const char* text);
-    O_Stream& operator<<(O_Stream& (*fkt)(O_Stream&)); 
+
+	O_Stream &operator<<(unsigned char c);
+	O_Stream &operator<<(char c);
+	O_Stream &operator<<(unsigned short number);
+	O_Stream &operator<<(short number);
+	O_Stream &operator<<(unsigned int number);
+	O_Stream &operator<<(int number);
+	O_Stream &operator<<(unsigned long number);
+	O_Stream &operator<<(long number);
+	O_Stream &operator<<(void *pointer);
+	O_Stream &operator<<(const char *text);
+	O_Stream &operator<<(O_Stream &(*fkt)(O_Stream &));
 
 	// Manipulator functions
-	O_Stream& endl(O_Stream& os);
-	O_Stream& bin(O_Stream& os);
-	O_Stream& oct(O_Stream& os);
-	O_Stream& dec(O_Stream& os);
-	O_Stream& hex(O_Stream& os);
+	friend O_Stream &endl(O_Stream &os);
+	friend O_Stream &bin(O_Stream &os);
+	friend O_Stream &oct(O_Stream &os);
+	friend O_Stream &dec(O_Stream &os);
+	friend O_Stream &hex(O_Stream &os);
 };
+
+O_Stream &endl(O_Stream &os);
+O_Stream &bin(O_Stream &os);
+O_Stream &oct(O_Stream &os);
+O_Stream &dec(O_Stream &os);
+O_Stream &hex(O_Stream &os);
 
 #endif

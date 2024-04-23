@@ -19,7 +19,6 @@
 class Stringbuffer {
 public:
 	Stringbuffer(const Stringbuffer &copy) = delete; // prevent copying
-/* Add your code here */ 
 	Stringbuffer();
 	
 	virtual ~Stringbuffer();
@@ -28,9 +27,9 @@ public:
 
 	virtual void flush() = 0;
 
-private:
-	void clearBuffer();
+protected:
 	
+	void clearBuffer();
 	static const int BUFFER_SIZE=100;
 	char buffer[BUFFER_SIZE];
 	int lastIndex;

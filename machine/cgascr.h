@@ -15,24 +15,19 @@
 
 #include "machine/io_port.h"
 
-class CGA_Screen {
+class CGA_Screen
+{
 private:
-void move_up();
-/* Add your code here */ 
+	void move_up();
 
 public:
 	CGA_Screen(const CGA_Screen &copy) = delete; // prevent copying
-	CGA_Screen()
-/* Add your code here */ 
-{}
-	void show (int x, int y, char c, unsigned char attrib);
-	void setpos (int x, int y);
-	void getpos (int &x, int &y);
-	void print (char* text, int length, unsigned char attrib);
+	CGA_Screen() {}
 
-/* Add your code here */ 
+	void show(int x, int y, char c, unsigned char attrib);
+	void setpos(int x, int y);
+	void getpos(int &x, int &y);
+	void print(char *text, int length, unsigned char attrib);
 };
-
-/* Add your code here */ 
 
 #endif

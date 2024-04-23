@@ -15,18 +15,30 @@
 
 #include "object/strbuf.h"
 
-/* Add your code here */ 
-
+/**
+ * @brief Default constructor for Stringbuffer.
+ * Initializes lastIndex to -1 and numChars to 0, and clears the buffer.
+ */
 Stringbuffer::Stringbuffer() : lastIndex(-1), numChars(0)
 {
     clearBuffer();
 }
 
+/**
+ * @brief Destructor for Stringbuffer.
+ * TODO: Consider adding flush() and clear() operations.
+ */
 Stringbuffer::~Stringbuffer()
 {
     // TODO: flush() and clear() ?
 }
 
+/**
+ * @brief Puts a character into the buffer.
+ * If the buffer is not full, the character is added and the counters are updated.
+ * If the buffer is full, it is flushed and cleared before the character is added.
+ * @param c The character to be added to the buffer.
+ */
 void Stringbuffer::put (char c)
 {
     if(numChars < BUFFER_SIZE)
@@ -43,6 +55,10 @@ void Stringbuffer::put (char c)
     }
 }
 
+/**
+ * @brief Clears the buffer.
+ * Sets all characters in the buffer to '\0', and resets numChars and lastIndex.
+ */
 void Stringbuffer::clearBuffer() {
     for (int i = 0; i < BUFFER_SIZE; ++i) {
         buffer[i] = '\0'; 
