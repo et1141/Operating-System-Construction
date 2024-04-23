@@ -39,6 +39,7 @@ unsigned char Keyboard_Controller::alt_tab[] = {
 
 unsigned char Keyboard_Controller::asc_num_tab[] = {
     '7', '8', '9', '-', '4', '5', '6', '+', '1', '2', '3', '0', ','};
+
 unsigned char Keyboard_Controller::scan_num_tab[] = {8,  9, 10, 53, 5,  6, 7,
 						     27, 2, 3,  4,  11, 51};
 
@@ -234,12 +235,39 @@ Keyboard_Controller::Keyboard_Controller() : ctrl_port(0x64), data_port(0x60)
 Key Keyboard_Controller::key_hit()
 {
 	Key invalid; // not explicitly initialized Key objects are invalid
-/* Add your code here */ 
-/* Add your code here */ 
+
+    //check if keypress event is waiting to be processed
+    if (!(ctrl_port.inb() & 0x01)) {
+        return invalid; //no key pressed
+    }
+
+    //read scan code from the data port
+    code = data_port.inb(); //code is private attr.
+
  
-/* Add your code here */ 
-	return invalid;
+    //decode scan code and obtain ASCII character
+    bool done = key_decoded();
+
+    //key decoding is not completed yet (code was not mapped to ascii yet)
+    while (!done) {
+        //wait for next scan code
+        while (!(ctrl_port.inb() & 0x01));
+
+        //read the next scan code from the data port
+        code = data_port.inb();
+
+        //decode the scan code and obtain ASCII character
+        done = key_decoded();
+    }
+
+    //create a Key object with the decoded ASCII character and return it
+    Key key;
+    key.ascii(gather.ascii());
+    key.scancode(gather.scancode());
+	
+    return key;
 }
+
 
 // REBOOT: Reboots the PC. Yes, in a PC the keyboard controller is
 //         responsible for this.
@@ -282,8 +310,24 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay)
 
 void Keyboard_Controller::set_led(char led, bool on)
 {
+	//1. Before sending a byte to the keyboard, you should make sure that the input buffer is empty (status register, inpb),
+	int status;
+	do {
+		status =
+		    ctrl_port.inb(); // wait until last command is processed
+	} while ((status & inpb) != 0);
+
+	//2. then write the byte (command code or user data) to the data port.
+	data_port.outb(0xed);
+	//3. Then you should wait for a response from the keyboard controller (outb) and check whether the output buffer contains the acknowledgment code 0xfa (ACK). Formally, only then the next byte may be sent. Note that after each byte an ACK is returned – i.e. one after sending the command code, and another one after sending the user data. 
+    //Note that while a clean solution would wait for an ACK after every command code, it is non-trivial to achieve a fully standard-conforming implementation. Correctly waiting for an ACK is difficult, as it may be interwoven with or squashed by subsequent key presses. 
+	//Therefore it is okay to simply ignore the acknowledgment byte.
+
+	//4. sending the user data. 
 /* Add your code here */ 
- 
-/* Add your code here */ 
- 
+	//do {
+	//	status =
+	//	    ctrl_port.inb(); // wait until last command is processed
+	//} while ((status & inpb) != 0);
+	data_port.outb(7); 
 }
