@@ -1,15 +1,10 @@
 /* Add your code here */
-#include "machine/cgascr.h"
-#include "machine/keyctrl.h"
-#include "object/o_stream.h"
-#include "device/cgastr.h"
-
-CGA_Stream kout;
-
+#include "user/appl.h"
 
 int main()
 {
-	/**/
+	CGA_Stream kout;
+		/**/
 	
 	int x,y;
 
@@ -91,6 +86,8 @@ int main()
 			kout.print(pressedKey, 1, 6);
 		}
 	}
+
+	//Application app;
 
 	return 0;
 }

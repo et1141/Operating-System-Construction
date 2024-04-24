@@ -11,15 +11,26 @@
 #ifndef __application_include__
 #define __application_include__
 
+#include "device/cgastr.h"
+#include "machine/keyctrl.h"
+
+extern CGA_Stream kout;
+extern Keyboard_Controller keyboard;
+extern Key key;
 class Application
- 
+
 {
 
 public:
-	Application (const Application &copy) = delete; // prevent copying
-/* Add your code here */ 
- 
-	void action ();
+	Application();
+	Application(const Application &copy) = delete; // prevent copying
+												   /* Add your code here */
+
+	void action();
+
+	void test_cga_screen();
+	void test_cga_stream();
+	void test_keyboard_controller();
 };
 
 #endif
