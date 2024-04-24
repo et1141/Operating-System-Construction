@@ -20,8 +20,6 @@ class Stringbuffer {
 public:
 	Stringbuffer(const Stringbuffer &copy) = delete; // prevent copying
 	Stringbuffer();
-	
-	virtual ~Stringbuffer();
 
 	void put (char c);
 
@@ -30,8 +28,7 @@ public:
 	void clearBuffer();
 	static const int BUFFER_SIZE=100;
 	char buffer[BUFFER_SIZE];
-	int lastIndex;
-	int numChars;
+	int pos;
 };
 
 #endif

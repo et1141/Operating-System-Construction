@@ -19,18 +19,9 @@
  * @brief Default constructor for Stringbuffer.
  * Initializes lastIndex to -1 and numChars to 0, and clears the buffer.
  */
-Stringbuffer::Stringbuffer() : lastIndex(-1), numChars(0)
+Stringbuffer::Stringbuffer() : pos(0)
 {
     clearBuffer();
-}
-
-/**
- * @brief Destructor for Stringbuffer.
- * TODO: Consider adding flush() and clear() operations.
- */
-Stringbuffer::~Stringbuffer()
-{
-    // TODO: flush() and clear() ?
 }
 
 /**
@@ -41,17 +32,16 @@ Stringbuffer::~Stringbuffer()
  */
 void Stringbuffer::put (char c)
 {
-    if(numChars < BUFFER_SIZE)
+    if(pos < BUFFER_SIZE)
     {
-        buffer[lastIndex++]=c;
-        numChars++;
+        buffer[pos++]=c;
+        //numChars++;
     }
     else // buffer overflow
     {
         flush();
         clearBuffer();
-        buffer[lastIndex++]=c;
-        numChars++;
+        buffer[pos++]=c;
     }
 }
 
@@ -63,6 +53,5 @@ void Stringbuffer::clearBuffer() {
     for (int i = 0; i < BUFFER_SIZE; ++i) {
         buffer[i] = '\0'; 
     }
-    numChars = 0; 
-    lastIndex = -1; 
+    pos = 0; 
 }

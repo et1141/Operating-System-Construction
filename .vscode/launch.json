@@ -1,0 +1,22 @@
+{
+    "version": "0.2",
+    "configurations": [
+        {
+            "name": "Debug with GDB",
+            "type": "gdb",
+            "request": "launch",
+            "program": "${workspaceFolder}/",
+            "cwd": "${workspaceFolder}",
+            //"target": "localhost:<2345>",
+            "miDebuggerPath": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+ }
+ 
