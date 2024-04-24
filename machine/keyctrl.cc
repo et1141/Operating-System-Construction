@@ -249,17 +249,7 @@ Key Keyboard_Controller::key_hit()
     bool done = key_decoded();
 
     //key decoding is not completed yet (code was not mapped to ascii yet)
-   /* while (!done) {
-        //wait for next scan codegit 
-        while (!(ctrl_port.inb() & 0x01));
 
-        //read the next scan code from the data port
-        code = data_port.inb();
-
-        //decode the scan code and obtain ASCII character
-        done = key_decoded();
-    }
-	*/
 	if (!done){
 		return invalid;
 	}
@@ -317,7 +307,7 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay)
 		    ctrl_port.inb(); // wait until last command is processed
 	} while ((status & inpb) != 0); 
 
-	int const mask = (speed & 0x1f) |delay << 5;
+	int const mask = ((speed & 0x1f) |delay << 5)&0x7f; //speed: bits 0-4, delay bits 5,6
     data_port.outb(mask);
 
 }
@@ -349,7 +339,8 @@ void Keyboard_Controller::set_led(char led, bool on)
 	}
 	else 
 		leds = leds & ~led;
-	leds=leds & 0x7;
+	leds=leds & 0x7;  	//0 0 0 0 0 casps_lock num_lock scroll_lock
+
 
 	data_port.outb(leds); 
-}
+} 
