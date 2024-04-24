@@ -7,13 +7,7 @@
 class CGA_Stream : public O_Stream, public CGA_Screen {
 public:
 
-    //using O_Stream::operator<<;
-
     void flush() override;
-
-private:
-    int cursorRow = 0;
-    int cursorCol = 0;
 };
 
 #endif // CGASTR_H

@@ -235,6 +235,7 @@ O_Stream &O_Stream::printNumber(long number)
 O_Stream &endl(O_Stream &os)
 {
     os.put('\n');
+    os.flush();
     return os;
 }
 
