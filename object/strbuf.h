@@ -16,17 +16,18 @@
 #ifndef __strbuf_include__
 #define __strbuf_include__
 
-class Stringbuffer {
+class Stringbuffer
+{
 public:
 	Stringbuffer(const Stringbuffer &copy) = delete; // prevent copying
 	Stringbuffer();
 
-	void put (char c);
+	void put(char c);
 
 	virtual void flush() = 0;
 
 	void clearBuffer();
-	static const int BUFFER_SIZE=100;
+	static const int BUFFER_SIZE = 100;
 	char buffer[BUFFER_SIZE];
 	int pos;
 };

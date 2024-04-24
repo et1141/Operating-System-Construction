@@ -13,27 +13,10 @@
 
 #include "cgastr.h"
 
+void CGA_Stream::flush()
+{
 
-void CGA_Stream::flush() {
-    buffer[lastIndex] = '\0'; // Null-terminate the buffer
-    
-    // Print the buffer to the CGA screen
-    int row = cursorRow;
-    int col = cursorCol;
-    for (char* p = buffer; *p != '\0'; p++) {
-        if (*p == '\n') {
-            row++;
-            col = 0;
-        } else {
-            show(row, col++, *p, 0x07); // 0x07 is the default color attribute
-            if (col >= BUFFER_SIZE) {
-                row++;
-                col = 0;
-            }
-        }
-    }
-    cursorRow = row;
-    cursorCol = col;
-    
+    print(buffer, pos - 1, 0x07); // 0x07 is the default color attribute
+
     clearBuffer(); // Clear the buffer after printing
 }
