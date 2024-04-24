@@ -21,17 +21,15 @@
 
 #include "object/strbuf.h"
 
-class O_Stream : protected Stringbuffer
+class O_Stream : public Stringbuffer
 {
 private:
 	int number_system;
 	O_Stream &printNumber(unsigned long number);
 	O_Stream &printNumber(long number);
 
-protected:
-	virtual void flush() = 0;
-
 public:
+	virtual void flush() = 0;
 
 	O_Stream();
 	O_Stream(const O_Stream &copy) = delete; // prevent copying
@@ -48,7 +46,7 @@ public:
 	O_Stream &operator<<(const char *text);
 	O_Stream &operator<<(O_Stream &(*fkt)(O_Stream &));
 
-	// Manipulator functions
+	// Manipulator func
 	friend O_Stream &endl(O_Stream &os);
 	friend O_Stream &bin(O_Stream &os);
 	friend O_Stream &oct(O_Stream &os);
