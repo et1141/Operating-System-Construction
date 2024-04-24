@@ -16,7 +16,7 @@
 void CGA_Stream::flush()
 {
 
-    print(buffer, pos - 1, 0x07); // 0x07 is the default color attribute
+    print(buffer, pos, 0x07); // 0x07 is the default color attribute
 
     clearBuffer(); // Clear the buffer after printing
 }
