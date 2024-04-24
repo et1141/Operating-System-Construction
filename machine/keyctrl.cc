@@ -249,7 +249,7 @@ Key Keyboard_Controller::key_hit()
     bool done = key_decoded();
 
     //key decoding is not completed yet (code was not mapped to ascii yet)
-    while (!done) {
+   /* while (!done) {
         //wait for next scan codegit 
         while (!(ctrl_port.inb() & 0x01));
 
@@ -259,6 +259,10 @@ Key Keyboard_Controller::key_hit()
         //decode the scan code and obtain ASCII character
         done = key_decoded();
     }
+	*/
+	if (!done){
+		return invalid;
+	}
 
     //create a Key object with the decoded ASCII character and return it
     Key key;
