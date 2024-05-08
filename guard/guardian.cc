@@ -12,8 +12,10 @@
 /* INCLUDES */
 #include "device/cgastr.h"
 #include "user/appl.h"
+#include "machine/plugbox.h"
 
 
+Plugbox plugbox;
 /* FUNCTIONS */
 
 extern "C" void guardian (unsigned int slot);
@@ -22,12 +24,14 @@ extern "C" void guardian (unsigned int slot);
 
 void guardian (unsigned int slot)
 {
+
     switch(slot){
-    case 0:
-        kout.print("timer",5,5);
+    case plugbox.timer:
+        //kout.print("timer",5,5);
         break;
-    case 1:
+    case plugbox.keyboard:
         kout.print("keyboard",8,5);
+        //playbox.report(slot).trigger(); 
         break;
     default:
         kout.print("unknown",7,5);

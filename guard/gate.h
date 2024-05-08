@@ -13,4 +13,10 @@
 
 /* Add your code here */ 
 
+class Gate{
+
+    public:
+    virtual void trigger (){};
+};
+
 #endif

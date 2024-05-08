@@ -13,10 +13,13 @@
 
 #include "device/cgastr.h"
 #include "machine/keyctrl.h"
+#include "machine/cpu.h"
+
 
 extern CGA_Stream kout;
 extern Keyboard_Controller keyboard;
 extern Key key;
+extern CPU cpu;
 class Application
 
 {
