@@ -138,7 +138,6 @@ O_Stream &O_Stream::operator<<(void *pointer)
 
     *pos = '0';
     *(pos - 1) = 'x';
-
     (*this) << (pos - 1);
     return *this;
 }
@@ -157,7 +156,6 @@ O_Stream &O_Stream::operator<<(const char *text)
     }
     return *this;
 }
-
 /**
  * @brief Overloaded operator<< for function pointer.
  * This function calls the function pointed to by the function pointer.

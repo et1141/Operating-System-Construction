@@ -11,23 +11,43 @@
 /* INCLUDES */
 
 #include "user/appl.h"
-
+#include "machine/cpu.h"
+#include "machine/pic.h"    
+#include "device/keyboard.h"
 /* GLOBAL VARIABLES */
 
+//Task1
 CGA_Stream kout;
 Keyboard_Controller keyboard;
 Key key;
+
+//Task2
+CPU cpu;
+PIC pic;
+//Keyboard keyboard;
+
+//, plugbox, pic and keyboard 
 
 Application::Application()
 {
     test_cga_screen();
     test_cga_stream();
-    //test_keyboard_controller(); 
     test_debian_logo();
+    //test_keyboard_controller(); 
+    action();
 }
+
 void Application::action()
 {
-
+    cpu.enable_int();
+    pic.allow(0);
+    if (pic.is_masked(0)){
+        kout<<"is masked"<<endl;
+    }
+    if (pic.is_masked(1)){
+        kout<<"is masked (keyboard  )"<<endl;
+    }
+    pic.allow(1);
 }
 
 void Application::test_cga_screen()

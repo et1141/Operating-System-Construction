@@ -5,5 +5,6 @@ int main()
 {
 	Application app;
 
+	while (true){};
 	return 0;
 }
