@@ -17,8 +17,14 @@
 class Plugbox {
 public:
 	Plugbox(const Plugbox &copy) = delete; // prevent copying
-private:
-/* Add your code here */ 
+	Plugbox();
+
+	const int timer {32};
+	const int keyboard {33};
+
+	void assign (unsigned int slot, Gate& gate);
+	
+	Gate& report (unsigned int slot);
 };
 
 #endif

@@ -7,6 +7,17 @@
 /*---------------------------------------------------------------------------*/
 /* Default interrupt handler.                                                */
 /*****************************************************************************/
-/* Add your code here */ 
-/* Add your code here */ 
+
+#include "device/panic.h"
+#include "device/cgastr.h"
  
+extern CGA_Stream kout;
+
+void Panic::trigger()
+{
+    kout << "Panic::trigger() called" << endl; //Correct ?
+
+    while (1)
+    {
+    }
+}

@@ -9,4 +9,15 @@
 /* for every hardware and software interrupt and every CPU exception.        */
 /*****************************************************************************/
 
-/* Add your code here */ 
+#include "machine/plugbox.h"
+
+void Plugbox::assign (unsigned int slot, Gate& gate)
+{
+
+}
+
+Gate& Plugbox::report (unsigned int slot)
+{
+
+     
+}
