@@ -4,7 +4,8 @@
 int main()
 {
 	Application app;
-
-	while (true){};
+//	app.test_keyboard_controller();
+	app.test_keyboard_interrupt_handling();
+	
 	return 0;
 }

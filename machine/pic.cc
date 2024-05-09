@@ -22,6 +22,10 @@
 PIC::PIC() : pic1_port(0x21), pic2_port(0xa1){} //port to IMR (Interrupt Mask Register) 
 
 
+/**
+ * Configure the PIC so that it forwards interrupts for the device with the number interrupt_device to the CPU.
+ * @param interrupt_device The number of the device for which the interrupts should be forwarded to the CPU.
+*/
 void PIC::allow(int interrupt_device) {
     if (interrupt_device > 7) {
         interrupt_device -= 7;
@@ -34,6 +38,11 @@ void PIC::allow(int interrupt_device) {
         }
 }
 
+
+/**
+* Configure the PIC so that it suppresses a specific hardware interrupt of the device number interrupt_device.
+* @param interrupt_device The number of the device for which the interrupts should be suppressed.
+*/
 void PIC::forbid(int interrupt_device) {
     if (interrupt_device > 7) {
         interrupt_device -= 7;
@@ -46,6 +55,10 @@ void PIC::forbid(int interrupt_device) {
 
 }
 
+/**
+* Determine the current state of the masking bit of a specific hardware interrupt with interrupt number interrupt_device. If interrupts of this device are not forwarded to the CPU, return true, otherwise return false.
+* @param interrupt_device The number of the device for which the masking bit should be checked.
+*/
 bool PIC::is_masked(int interrupt_device) {
     if (interrupt_device > 7) {
         return (pic1_port.inb() >> (interrupt_device - 7)) & 0x1;

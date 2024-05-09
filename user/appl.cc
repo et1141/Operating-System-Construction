@@ -10,44 +10,30 @@
 
 /* INCLUDES */
 
-#include "user/appl.h"
-#include "machine/cpu.h"
-#include "machine/pic.h"    
-#include "device/keyboard.h"
-/* GLOBAL VARIABLES */
 
-//Task1
-CGA_Stream kout;
-Keyboard_Controller keyboard;
+#include "user/appl.h"
+#include "user/globals.h"
+
+
+/* GLOBAL VARIABLES are moved to globals.h*/
+
 Key key;
 
-//Task2
-CPU cpu;
-PIC pic;
-//Keyboard keyboard;
-
-//, plugbox, pic and keyboard 
 
 Application::Application()
 {
     test_cga_screen();
     test_cga_stream();
     test_debian_logo();
-    //test_keyboard_controller(); 
-    action();
+    //test_keyboard_controller();
 }
 
-void Application::action()
+void Application::test_keyboard_interrupt_handling()
 {
     cpu.enable_int();
-    pic.allow(0);
-    if (pic.is_masked(0)){
-        kout<<"is masked"<<endl;
-    }
-    if (pic.is_masked(1)){
-        kout<<"is masked (keyboard  )"<<endl;
-    }
-    pic.allow(1);
+    keyboard.plugin();
+
+    while(true){}; 
 }
 
 void Application::test_cga_screen()
@@ -110,21 +96,21 @@ void Application::test_debian_logo()
 
 void Application::test_keyboard_controller()
 {
-    keyboard.set_repeat_rate(0, 3);
-    keyboard.set_led(1, true);
-    keyboard.set_led(2, true);
-    keyboard.set_led(4, true);
+    keyboard_controller.set_repeat_rate(0, 3);
+    keyboard_controller.set_led(1, true);
+    keyboard_controller.set_led(2, true);
+    keyboard_controller.set_led(4, true);
 
     // Print instructions
-    kout.print("\nYou are in while true loop for keyboard testing. Click q to quit", 66, 4);
-    kout.print("\nClick m to set minimum(31) repeat_rate", 35, 4);
-    kout.print("\nClick m to set max(0) repeat_rate", 36, 4);
+    kout.print("\nClick q to quit keyboard testing while loop", 45, 4);
+    kout.print("\nClick m to set minimum(31) repeat_rate", 40, 4);
+    kout.print("\nClick M to set max(0) repeat_rate", 35, 4);
     kout.print("\nClick c to turn on all controls", 33, 4);
 
     // Main loop to wait for key presses
     while (true)
     {
-        key = keyboard.key_hit();
+        key = keyboard_controller.key_hit();
 
         if (key.valid())
         {
@@ -135,17 +121,17 @@ void Application::test_keyboard_controller()
 
             if (key.ascii() == 'm')
             {
-                keyboard.set_repeat_rate(31, 3);
+                keyboard_controller.set_repeat_rate(31, 3);
             }
             if (key.ascii() == 'M')
             {
-                keyboard.set_repeat_rate(0, 3);
+                keyboard_controller.set_repeat_rate(0, 3);
             }
             if (key.ascii() == 'c')
             {
-                keyboard.set_led(1, true);
-                keyboard.set_led(2, true);
-                keyboard.set_led(4, true);
+                keyboard_controller.set_led(1, true);
+                keyboard_controller.set_led(2, true);
+                keyboard_controller.set_led(4, true);
             }
 
             char pressedKey[2];

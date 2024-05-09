@@ -11,31 +11,19 @@
 
 /* INCLUDES */
 #include "device/cgastr.h"
-#include "user/appl.h"
-#include "machine/plugbox.h"
+#include "user/globals.h"
 
-
-Plugbox plugbox;
 /* FUNCTIONS */
 
 extern "C" void guardian (unsigned int slot);
-/* GUARDIAN: Low-level interrupt handling. We will extend this function at */
-/*           a later point in time.                                        */
 
+
+/**
+ * The guardian function is responsible for device-specific interrupt handling. For this purpose the corresponding Gate object is determined with the help of the interrupt number in the global Plugbox object plugbox and its trigger() method is executed. 
+ * @param slot interrupt numer. Firs 32 are reserved for CPU exceptions, the rest for hardware and software interrupts. Eg: 0 is the CPU exception for division by zero, 32 is the hardware interrupt for the timer, 33 is keyboard interrupt.
+*/
 void guardian (unsigned int slot)
 {
-
-    switch(slot){
-    case plugbox.timer:
-        //kout.print("timer",5,5);
-        break;
-    case plugbox.keyboard:
-        kout.print("keyboard",8,5);
-        //playbox.report(slot).trigger(); 
-        break;
-    default:
-        kout.print("unknown",7,5);
-        break;   
-    } 
+    plugbox.report(slot).trigger();
 }
 

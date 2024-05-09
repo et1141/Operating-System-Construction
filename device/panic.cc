@@ -7,16 +7,15 @@
 /*---------------------------------------------------------------------------*/
 /* Default interrupt handler.                                                */
 /*****************************************************************************/
-/* Add your code here */ 
-/* Add your code here */ 
- 
 
 #include "device/panic.h"
-#include "user/appl.h"
-#include "machine/cpu.h"
+#include "user/globals.h"
 
-void trigger(){
+
+/**
+ * Default interrupt handler. Called when an interrupt without a handler is triggered. Prints something and stops CPU.
+*/
+void Panic::trigger(){
     kout.print("panic_interrupt_handling",25,5);
     cpu.halt();
-
 }

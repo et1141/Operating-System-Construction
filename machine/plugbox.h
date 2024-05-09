@@ -13,13 +13,12 @@
 #define __Plugbox_include__
 
 #include "guard/gate.h"
-#include "device/panic.h"
 
 class Plugbox {
 public:
 
-	static const int timer = 32;
-	static const int keyboard = 33;
+	static const int timer = 32; //    Interrupt number of the timer module
+	static const int keyboard = 33; //	    Interrupt number of the keyboard
 
 	Plugbox();
 	Plugbox(const Plugbox &copy) = delete; // prevent copying
@@ -28,8 +27,6 @@ public:
 
 private:
 	Gate * IVT[64];  // interrupt vector table
-	Panic * panic;
-/* Add your code here */ 
 };
 
 #endif
