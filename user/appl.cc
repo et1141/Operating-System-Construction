@@ -25,11 +25,15 @@ Application::Application()
     test_cga_screen();
     test_cga_stream();
     test_debian_logo();
-    //test_keyboard_controller();
+
+   // test_keyboard_controller();
 }
 
-void Application::test_keyboard_interrupt_handling()
-{
+/**
+ * Test the keyboard interrupt handling. 
+*/
+void Application::action()
+ {
     cpu.enable_int();
     keyboard.plugin();
 
@@ -96,10 +100,11 @@ void Application::test_debian_logo()
 
 void Application::test_keyboard_controller()
 {
-    keyboard_controller.set_repeat_rate(0, 3);
-    keyboard_controller.set_led(1, true);
-    keyboard_controller.set_led(2, true);
-    keyboard_controller.set_led(4, true);
+
+    keyboard.keyboard_controller.set_repeat_rate(0, 3);
+    keyboard.keyboard_controller.set_led(1, true);
+    keyboard.keyboard_controller.set_led(2, true);
+    keyboard.keyboard_controller.set_led(4, true);
 
     // Print instructions
     kout.print("\nClick q to quit keyboard testing while loop", 45, 4);
@@ -110,7 +115,7 @@ void Application::test_keyboard_controller()
     // Main loop to wait for key presses
     while (true)
     {
-        key = keyboard_controller.key_hit();
+        key = keyboard.keyboard_controller.key_hit();
 
         if (key.valid())
         {
@@ -121,17 +126,17 @@ void Application::test_keyboard_controller()
 
             if (key.ascii() == 'm')
             {
-                keyboard_controller.set_repeat_rate(31, 3);
+                keyboard.keyboard_controller.set_repeat_rate(31, 3);
             }
             if (key.ascii() == 'M')
             {
-                keyboard_controller.set_repeat_rate(0, 3);
+                keyboard.keyboard_controller.set_repeat_rate(0, 3);
             }
             if (key.ascii() == 'c')
             {
-                keyboard_controller.set_led(1, true);
-                keyboard_controller.set_led(2, true);
-                keyboard_controller.set_led(4, true);
+                keyboard.keyboard_controller.set_led(1, true);
+                keyboard.keyboard_controller.set_led(2, true);
+                keyboard.keyboard_controller.set_led(4, true);
             }
 
             char pressedKey[2];

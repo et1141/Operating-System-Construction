@@ -2,7 +2,6 @@
 
 
 CGA_Stream kout;
-Keyboard_Controller keyboard_controller; 
 
 CPU cpu;
 Plugbox plugbox;

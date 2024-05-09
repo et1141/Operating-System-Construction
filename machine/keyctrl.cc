@@ -220,7 +220,6 @@ Keyboard_Controller::Keyboard_Controller() : ctrl_port(0x64), data_port(0x60)
 	set_led(led::caps_lock, false);
 	set_led(led::scroll_lock, false);
 	set_led(led::num_lock, false);
-
 	// maximum speed, minimal delay
 	set_repeat_rate(0, 0);
 }
@@ -249,16 +248,22 @@ Key Keyboard_Controller::key_hit()
     bool done = key_decoded();
 
     //key decoding is not completed yet (code was not mapped to ascii yet)
-
+	
 	if (!done){
 		return invalid;
 	}
+	
 
+	if (gather.alt() && gather.ctrl_left() && gather.scancode() ==83 ){ //ctral+alt+del => reboot
+		reboot();
+	}
+	
     //create a Key object with the decoded ASCII character and return it
     Key key;
     key.ascii(gather.ascii());
     key.scancode(gather.scancode());
-	
+
+
     return key;
 }
 
@@ -294,6 +299,8 @@ void Keyboard_Controller::reboot()
 
 void Keyboard_Controller::set_repeat_rate(int speed, int delay)
 {
+	//pic.forbid(pic.keyboard); //hard interrupt synchronization: enable to be sure that the keyboard controller is not interrupted by the CPU while processing the command
+					   //in case when we are in the middle of IO operation, we don't want to be interrupted by the CPU because that may cause a mess in the data transfer
 	int status;
 	do {
 		status =
@@ -310,13 +317,15 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay)
 	int const mask = ((speed & 0x1f) |delay << 5)&0x7f; //speed: bits 0-4, delay bits 5,6
     data_port.outb(mask);
 
+	//pic.allow(pic.keyboard);
+
 }
 
 // SET_LED: sets or clears the specified LED
 
 void Keyboard_Controller::set_led(char led, bool on)
 {
-	//1. Before sending a byte to the keyboard, you should make sure that the input buffer is empty (status register, inpb),
+	//pic.forbid(pic.keyboard); 	//1. Before sending a byte to the keyboard, you should make sure that the input buffer is empty (status register, inpb),
 	int status;
 	do {
 		status =
@@ -342,5 +351,7 @@ void Keyboard_Controller::set_led(char led, bool on)
 	leds=leds & 0x7;  	//0 0 0 0 0 casps_lock num_lock scroll_lock
 
 
-	data_port.outb(leds); 
+	data_port.outb(leds);
+
+	//pic.allow(pic.keyboard);
 } 

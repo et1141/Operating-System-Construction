@@ -12,22 +12,17 @@
 #define __Keyboard_include__
 
 #include "machine/keyctrl.h"
-#include "guard/gate.h"
-#include "machine/key.h"
- 
-class Keyboard
-/* Add your code here */ 
+#include "guard/gate.h" 
+
+class Keyboard: public Gate, public Keyboard_Controller
 {
 public:
 	Keyboard(const Keyboard &copy) = delete; // prevent copying
-/* Add your code here */ 
+	Keyboard(); 
  
-/* Add your code here */ 
- 
-	// PLUGIN: "Plugs in" the keyboard (driver). From now on, keypresses are handled.
 	void plugin();
-
-/* Add your code here */ 
+	void trigger ();
+	Keyboard_Controller keyboard_controller; // shoud i=be private? (test_keyboard_controller is using the object, so when make private it will have to define another Keyboard_Controller object)
 
 };
 

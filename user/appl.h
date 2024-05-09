@@ -22,7 +22,7 @@ public:
 	void test_cga_stream();
 	void test_keyboard_controller();
 	void test_debian_logo();
-	void test_keyboard_interrupt_handling();
+	void action();
 
 };
 

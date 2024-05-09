@@ -5,7 +5,8 @@ int main()
 {
 	Application app;
 //	app.test_keyboard_controller();
-	app.test_keyboard_interrupt_handling();
+
+	app.action();
 	
 	return 0;
 }

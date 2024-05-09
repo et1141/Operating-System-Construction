@@ -7,11 +7,9 @@
 #include "machine/cpu.h"
 #include "machine/pic.h"    
 #include "device/cgastr.h"
-#include "machine/keyctrl.h"
 
 
 extern CGA_Stream kout;
-extern Keyboard_Controller keyboard_controller; //TODO delete
 
 
 extern CPU cpu;
