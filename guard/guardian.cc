@@ -24,6 +24,9 @@ extern "C" void guardian (unsigned int slot);
 */
 void guardian (unsigned int slot)
 {
-    plugbox.report(slot).trigger();
+    if (slot !=plugbox.timer){
+        plugbox.report(slot).trigger();
+
+    }
 }
 

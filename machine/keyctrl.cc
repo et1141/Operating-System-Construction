@@ -11,6 +11,7 @@
 /* INCLUDES */
 
 #include "machine/keyctrl.h"
+#include "user/globals.h"
  
 /* STATIC MEMBERS */
 
@@ -233,6 +234,7 @@ Keyboard_Controller::Keyboard_Controller() : ctrl_port(0x64), data_port(0x60)
 
 Key Keyboard_Controller::key_hit()
 {
+	cpu.disable_int(); // hard interrupt synchronization
 	Key invalid; // not explicitly initialized Key objects are invalid
 
     //check if keypress event is waiting to be processed
@@ -263,7 +265,7 @@ Key Keyboard_Controller::key_hit()
     key.ascii(gather.ascii());
     key.scancode(gather.scancode());
 
-
+	cpu.enable_int();
     return key;
 }
 
@@ -299,8 +301,9 @@ void Keyboard_Controller::reboot()
 
 void Keyboard_Controller::set_repeat_rate(int speed, int delay)
 {
-	//pic.forbid(pic.keyboard); //hard interrupt synchronization: enable to be sure that the keyboard controller is not interrupted by the CPU while processing the command
+	pic.forbid(pic.keyboard); //hard interrupt synchronization: enable to be sure that the keyboard controller is not interrupted by the CPU while processing the command
 					   //in case when we are in the middle of IO operation, we don't want to be interrupted by the CPU because that may cause a mess in the data transfer
+
 	int status;
 	do {
 		status =
@@ -317,7 +320,7 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay)
 	int const mask = ((speed & 0x1f) |delay << 5)&0x7f; //speed: bits 0-4, delay bits 5,6
     data_port.outb(mask);
 
-	//pic.allow(pic.keyboard);
+	pic.allow(pic.keyboard);
 
 }
 
@@ -325,7 +328,7 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay)
 
 void Keyboard_Controller::set_led(char led, bool on)
 {
-	//pic.forbid(pic.keyboard); 	//1. Before sending a byte to the keyboard, you should make sure that the input buffer is empty (status register, inpb),
+	pic.forbid(pic.keyboard); 	//1. Before sending a byte to the keyboard, you should make sure that the input buffer is empty (status register, inpb),
 	int status;
 	do {
 		status =
@@ -353,5 +356,5 @@ void Keyboard_Controller::set_led(char led, bool on)
 
 	data_port.outb(leds);
 
-	//pic.allow(pic.keyboard);
+	pic.allow(pic.keyboard);
 } 

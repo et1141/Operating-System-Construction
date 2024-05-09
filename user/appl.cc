@@ -22,6 +22,8 @@ Key key;
 
 Application::Application()
 {
+    keyboard.plugin(); // need to plug the keyboard here because otherwise test functions call interrupt => panic is called and halts the CPU.
+
     test_cga_screen();
     test_cga_stream();
     test_debian_logo();
@@ -35,6 +37,7 @@ Application::Application()
 void Application::action()
  {
     cpu.enable_int();
+    pic.allow(pic.timer);
     keyboard.plugin();
 
     while(true){}; 
