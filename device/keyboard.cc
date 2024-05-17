@@ -29,17 +29,19 @@ void Keyboard::plugin(){
 /**
  * This method responds to interrupts from the keyboard. It reads the key from the keyboard controller and prints it to the screen. When the user inputs Ctrl-Alt-Delete, the system should reboot.
 */
-void Keyboard::trigger(){
+bool Keyboard::prologue(){
+    key = keyboard_controller.key_hit();
+    return true;
+}
 
-    Key key = keyboard_controller.key_hit();
+void Keyboard::epilogue(){
     if (key.valid()){
         char pressedKey[2];
         pressedKey[0] = (char)key.ascii();
         pressedKey[1] = '\0'; //not necessary, but for safety
-       // kout.setpos(0,24);
+       // kout.setpos(0,24);   
         kout.print(pressedKey, 1, 6);
     }
 }
-
 
  

@@ -234,7 +234,6 @@ Keyboard_Controller::Keyboard_Controller() : ctrl_port(0x64), data_port(0x60)
 
 Key Keyboard_Controller::key_hit()
 {
-	cpu.disable_int(); // hard interrupt synchronization
 	Key invalid; // not explicitly initialized Key objects are invalid
 
     //check if keypress event is waiting to be processed
@@ -265,7 +264,6 @@ Key Keyboard_Controller::key_hit()
     key.ascii(gather.ascii());
     key.scancode(gather.scancode());
 
-	cpu.enable_int();
     return key;
 }
 

@@ -7,6 +7,7 @@
 #include "machine/cpu.h"
 #include "machine/pic.h"    
 #include "device/cgastr.h"
+#include "guard/guard.h"
 
 
 extern CGA_Stream kout;
@@ -16,7 +17,7 @@ extern CPU cpu;
 extern Plugbox plugbox;
 extern PIC pic;
 extern Keyboard keyboard;
-
+extern Guard guard;
 
 #endif // GLOBALS_H
 

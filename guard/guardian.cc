@@ -25,8 +25,12 @@ extern "C" void guardian (unsigned int slot);
 void guardian (unsigned int slot)
 {
     if (slot !=plugbox.timer){
-        plugbox.report(slot).trigger();
-
+        if(plugbox.report(slot).prologue()){
+            plugbox.report(slot).epilogue();
+        }
+    }
+    else if(slot==42){
+        kout.print("ENTERING OR LEAVING CRITICAL SECTION TWICE!",44,5);
     }
 }
 

@@ -17,7 +17,7 @@ public:
 	Application();
 	Application(const Application &copy) = delete; // prevent copying
 												   /* Add your code here */
-
+	
 	void test_cga_screen();
 	void test_cga_stream();
 	void test_keyboard_controller();

@@ -22,9 +22,7 @@ class Panic: public Gate
 public:
 	Panic (const Panic &copy) = delete; // prevent copying
 	Panic () {}
-    void trigger ();
-
- 
+    void epilogue ();
 };
 
 #endif

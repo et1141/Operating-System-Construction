@@ -16,12 +16,16 @@
 
 class Keyboard: public Gate, public Keyboard_Controller
 {
+private:
+	Key key;
 public:
 	Keyboard(const Keyboard &copy) = delete; // prevent copying
 	Keyboard(); 
- 
+
 	void plugin();
-	void trigger ();
+	bool prologue() override;
+	void epilogue() override;
+
 	Keyboard_Controller keyboard_controller; // shoud i=be private? (test_keyboard_controller is using the object, so when make private it will have to define another Keyboard_Controller object)
 
 };

@@ -39,6 +39,7 @@ void Application::action()
     cpu.enable_int();
     pic.allow(pic.timer);
     keyboard.plugin();
+    
 
     while(true){}; 
 }

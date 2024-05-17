@@ -15,6 +15,29 @@
 #ifndef __Secure_include__
 #define __Secure_include__
 
-/* Add your code here */ 
+class Secure{
+
+public:
+    Secure ();
+    ~Secure ();
+
+};
 
 #endif
+
+
+/*
+Convention how to use it to enter critical section: 
+Description
+The Secure class is used for convenient protection of critical sections. It exploits the fact that the C++ compiler automatically includes constructor and destructor calls in the code for each object and that an object loses its validity as soon as it leaves the scope in which it was declared.
+
+Therefore, if a critical section is entered in the constructor of Secure and exited in the destructor, marking critical code sections can be done quite simply as follows:
+
+    // uncritical
+    ...
+     { Secure section;
+       // here come the critical instructions 
+       ...
+     }
+    // end of the critical section
+*/

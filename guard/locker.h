@@ -11,13 +11,34 @@
 /* counting functionality, must be implemented elsewhere.                    */
 /*****************************************************************************/
 
+
 #ifndef __Locker_include__
 #define __Locker_include__
 
+
 class Locker {
+private:
+	bool lock;
 public:
 	Locker(const Locker &copy) = delete; // prevent copying
-/* Add your code here */ 
+	/**
+	 * Constructor that initializes the lock variable (free).
+	*/
+	Locker(){lock=false;}
+	/**
+	 * This method must be called when entering the critical section.
+	*/
+	void enter ();
+
+	/**
+	 * This method must be called when leaving the critical section.
+	*/
+	void retne ();
+	
+	/**
+	 * Indicates whether the critical section is free. 
+	*/
+	bool avail (){return lock;}
 };
 
 #endif

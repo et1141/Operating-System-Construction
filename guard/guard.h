@@ -14,11 +14,12 @@
 #define __Guard_include__
 
 /* Add your code here */ 
+#include "guard/locker.h"
 
 class Guard : public Locker {
 public:
 	Guard (const Guard &copy) = delete; // prevent copying
-	Guard () {}
+	Guard(){}
 /* Add your code here */ 
 };
 
