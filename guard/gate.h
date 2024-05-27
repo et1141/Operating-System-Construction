@@ -12,7 +12,7 @@
 #ifndef __Gate_include__
 #define __Gate_include__
 
-#include "chain.h"
+#include "object/chain.h"
 
 class Gate : public Chain {
 private:
