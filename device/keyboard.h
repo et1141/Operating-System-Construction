@@ -24,6 +24,16 @@ public:
 	void trigger ();
 	Keyboard_Controller keyboard_controller; // shoud i=be private? (test_keyboard_controller is using the object, so when make private it will have to define another Keyboard_Controller object)
 
+	/**
+     * This method responds to interrupts from the keyboard. 
+     * @return true if the epilogue should be executed, false otherwise.
+     */
+    bool prologue() override;
+
+    /**
+     * Here, the character that was read during the prologue handling is displayed on the screen.
+     */
+    void epilogue() override;
 };
 
 #endif
