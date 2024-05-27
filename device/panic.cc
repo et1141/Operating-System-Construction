@@ -19,3 +19,9 @@ void Panic::trigger(){
     kout.print("panic_interrupt_handling",25,5);
     cpu.halt();
 }
+
+bool Panic::prologue(){
+    kout << "Panic: Unhandled interrupt or exception occurred!\n";
+    cpu.halt();
+    return false;
+}       
