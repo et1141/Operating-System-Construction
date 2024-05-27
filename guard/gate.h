@@ -12,13 +12,38 @@
 #ifndef __Gate_include__
 #define __Gate_include__
 
-class Gate{
+#include "chain.h"
 
-    public:
-    /**
-     * Function for interrupt handling.
+class Gate : public Chain {
+private:
+   bool _queued; // Flag indicating whether epilogue is queued
+
+public:
+   Gate() : _queued(false) {}
+
+   /** 
+    * Interrupt handling function.
+    * Should be overridden in derived classes.
     */
-    virtual void trigger (){};
+   virtual bool prologue() {
+       return false; // By default, does not require executing epilogue
+   }
+
+   /**
+    * Default implementation of epilogue.
+    * Can be overridden in derived classes.
+    */
+   virtual void epilogue() {}
+
+   // Setter for _queued flag
+   void queued(bool q) {
+       _queued = q;
+   }
+
+   // Getter for _queued flag
+   bool queued() const {
+       return _queued;
+   }
 };
 
 #endif
