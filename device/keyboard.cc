@@ -9,8 +9,6 @@
 /*****************************************************************************/
 #include "device/keyboard.h"
 #include "user/globals.h"
-#include "machine/key.h"
-
 
 
 Keyboard::Keyboard(){
@@ -25,43 +23,24 @@ void Keyboard::plugin(){
     pic.allow(pic.keyboard); // tell the PIC object pic that interrupts of the keyboard should from now on be reported to the processor
 }
 
-bool Keyboard::prologue() {
-    Key key = keyboard_controller.key_hit();
-    if (key.valid()) {
-        if (key.ctrl() && key.alt() && key.scancode() == Key::scan::del) {
-            // Ctrl-Alt-Delete combination
-            keyboard_controller.reboot();
-        }
-        return true; // Request epilogue execution
-    }
-    return false; // No need for epilogue
-}
-
-void Keyboard::epilogue() {
-    Key key = keyboard_controller.key_hit();
-    if (key.valid()) {
-        char pressedKey[2];
-        pressedKey[0] = (char)key.ascii();
-        pressedKey[1] = '\0'; // Not necessary, but for safety
-        kout.print(pressedKey, 1, 6);
-    }
-}
-/*
-
 bool Keyboard::prologue(){
     key = keyboard_controller.key_hit();
-    return true;
+    if (key.valid()){
+        if (key.alt() && key.ctrl_left() && key.scancode() ==83 ){ //ctral+alt+del => reboot
+		    reboot();
+	    }
+        return true;
+    }
+    return false;
 }
 
 void Keyboard::epilogue(){
-    if (key.valid()){
-        char pressedKey[2];
-        pressedKey[0] = (char)key.ascii();
-        pressedKey[1] = '\0'; // Not necessary, but for safety
-        kout.print(pressedKey, 1, 6);
-    }
+    char pressedKey[2];
+    pressedKey[0] = (char)key.ascii();
+    pressedKey[1] = '\0'; // Not necessary, but for safety
+    kout.print(pressedKey, 1, 6);
 }
-
+/*
 void Keyboard::trigger() {
     if (prologue()) {
         // If prologue requests epilogue execution, enqueue the epilogue

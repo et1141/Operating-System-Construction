@@ -16,6 +16,7 @@
 
 #include "object/chain.h"
 
+
 class Gate : public Chain {
 private:
    bool _queued; // Flag indicating whether epilogue is queued

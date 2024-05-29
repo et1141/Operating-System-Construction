@@ -13,11 +13,11 @@
 
 #include "machine/keyctrl.h"
 #include "guard/gate.h" 
-
+#include "machine/key.h"
 class Keyboard: public Gate, public Keyboard_Controller
 {
 private:
-	Key key;
+    Key key;
 public:
 	Keyboard(const Keyboard &copy) = delete; // prevent copying
 	Keyboard(); 

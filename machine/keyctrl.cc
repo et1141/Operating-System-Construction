@@ -244,6 +244,7 @@ Key Keyboard_Controller::key_hit()
     //read scan code from the data port
     code = data_port.inb(); //code is private attr.
 
+
  
     //decode scan code and obtain ASCII character
     bool done = key_decoded();
@@ -254,11 +255,9 @@ Key Keyboard_Controller::key_hit()
 		return invalid;
 	}
 	
-
 	if (gather.alt() && gather.ctrl_left() && gather.scancode() ==83 ){ //ctral+alt+del => reboot
 		reboot();
 	}
-	
     //create a Key object with the decoded ASCII character and return it
     Key key;
     key.ascii(gather.ascii());
