@@ -22,7 +22,6 @@ extern "C" void guardian (unsigned int slot);
  * The guardian function is responsible for device-specific interrupt handling. For this purpose the corresponding Gate object is determined with the help of the interrupt number in the global Plugbox object plugbox and its trigger() method is executed. 
  * @param slot interrupt numer. Firs 32 are reserved for CPU exceptions, the rest for hardware and software interrupts. Eg: 0 is the CPU exception for division by zero, 32 is the hardware interrupt for the timer, 33 is keyboard interrupt.
 */
-/*
 void guardian(unsigned int slot) {    
     if (slot !=plugbox.timer){
         // Find the corresponding Gate object using the interrupt number
@@ -39,16 +38,4 @@ void guardian(unsigned int slot) {
     else if(slot==42){
             kout.print("ENTERING OR LEAVING CRITICAL SECTION TWICE!",44,5);
         }    
-}
-*/
-
-//Guardian task2 version        
-
-void guardian (unsigned int slot)
-{
-    cpu.enable_int();
-    if (slot !=plugbox.timer){
-        keyboard.trigger();
-
-    }
 }

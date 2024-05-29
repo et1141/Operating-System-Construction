@@ -38,6 +38,7 @@ void Keyboard::epilogue(){
     char pressedKey[2];
     pressedKey[0] = (char)key.ascii();
     pressedKey[1] = '\0'; // Not necessary, but for safety
+    //kout.setpos(0,24);
     kout.print(pressedKey, 1, 6);
 }
 
