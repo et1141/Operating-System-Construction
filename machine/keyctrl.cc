@@ -234,7 +234,7 @@ Keyboard_Controller::Keyboard_Controller() : ctrl_port(0x64), data_port(0x60)
 
 Key Keyboard_Controller::key_hit()
 {
-	//cpu.disable_int();
+	cpu.disable_int();
 
 	Key invalid; // not explicitly initialized Key objects are invalid
 
@@ -262,7 +262,7 @@ Key Keyboard_Controller::key_hit()
     Key key;
     key=Key(gather);
 
-	//cpu.enable_int();
+	cpu.enable_int();
     return key;
 }
 
