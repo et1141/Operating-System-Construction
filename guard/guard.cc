@@ -25,11 +25,8 @@ void Guard::leave() {
         cpu.enable_int(); // we can be interrupted while we are executing the epilogue 
         gate->epilogue();
     }
-    
+    guard.retne(); 
 }
-
-
-
 
 void Guard::relay(Gate* item) {
     if (guard.avail()) {
@@ -37,7 +34,7 @@ void Guard::relay(Gate* item) {
         // If critical section is free, execute the epilogue immediately
         cpu.enable_int(); //Since in our implementation interrupts are disabled before guardian() is called, they must be enabled again "manually" 
         item->epilogue();
-        guard.leave();
+        //section destructor calls guard.leave()
     } else {
         // If critical section is occupied, enqueue the epilogue
         if (!item->queued()) {

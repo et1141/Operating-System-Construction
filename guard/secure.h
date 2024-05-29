@@ -30,7 +30,7 @@ public:
      * In the destructor, the critical section is exited.
      */
     inline ~Secure() {
-        guard.retne();
+        guard.leave();
     }
 };
 

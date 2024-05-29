@@ -35,6 +35,8 @@ public:
      * Here, the character that was read during the prologue handling is displayed on the screen.
      */
     void epilogue() override;
+
+    void trigger();
 };
 
 #endif

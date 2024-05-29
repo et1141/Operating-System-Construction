@@ -40,15 +40,16 @@ void Keyboard::epilogue(){
     pressedKey[1] = '\0'; // Not necessary, but for safety
     kout.print(pressedKey, 1, 6);
 }
-/*
-void Keyboard::trigger() {
-    if (prologue()) {
-        // If prologue requests epilogue execution, enqueue the epilogue
-        if (!queued()) {
-            queued(true);
-            // Code to enqueue the epilogue
-        }
+
+
+//function from task2 - hard synchronization version
+void Keyboard::trigger(){
+    kout.setpos(0,24);
+    Key key = keyboard_controller.key_hit();
+    if (key.valid()){
+        char pressedKey[2];
+        pressedKey[0] = (char)key.ascii();
+        pressedKey[1] = '\0'; //not necessary, but for safety
+        kout.print(pressedKey, 1, 6);
     }
 }
-
- */

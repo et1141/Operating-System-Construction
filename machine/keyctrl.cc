@@ -234,6 +234,8 @@ Keyboard_Controller::Keyboard_Controller() : ctrl_port(0x64), data_port(0x60)
 
 Key Keyboard_Controller::key_hit()
 {
+	//cpu.disable_int();
+
 	Key invalid; // not explicitly initialized Key objects are invalid
 
     //check if keypress event is waiting to be processed
@@ -255,14 +257,12 @@ Key Keyboard_Controller::key_hit()
 		return invalid;
 	}
 	
-	if (gather.alt() && gather.ctrl_left() && gather.scancode() ==83 ){ //ctral+alt+del => reboot
-		reboot();
-	}
+	
     //create a Key object with the decoded ASCII character and return it
     Key key;
-    key.ascii(gather.ascii());
-    key.scancode(gather.scancode());
+    key=Key(gather);
 
+	//cpu.enable_int();
     return key;
 }
 
@@ -298,6 +298,7 @@ void Keyboard_Controller::reboot()
 
 void Keyboard_Controller::set_repeat_rate(int speed, int delay)
 {
+	
 	pic.forbid(pic.keyboard); //hard interrupt synchronization: enable to be sure that the keyboard controller is not interrupted by the CPU while processing the command
 					   //in case when we are in the middle of IO operation, we don't want to be interrupted by the CPU because that may cause a mess in the data transfer
 
