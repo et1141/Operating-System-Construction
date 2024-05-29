@@ -18,27 +18,31 @@
 
 class Locker {
 private:
-	bool free; //1
-public:
-	Locker(const Locker &copy) = delete; // prevent copying
-	/**
-	 * Constructor that initializes the lock variable (free).
-	*/
-	Locker(){free=true;}
-	/**
-	 * This method must be called when entering the critical section.
-	*/
-	void enter ();
+    bool _is_free;
 
-	/**
-	 * This method must be called when leaving the critical section.
-	*/
-	void retne ();
-	
-	/**
-	 * Indicates whether the critical section is free. 
-	*/
-	bool avail (){return free;}
+public:
+    /**
+     * Constructor that initializes the lock variable as free.
+     */
+    Locker() : _is_free(true) {}
+
+    /**
+     * Method to enter the critical section.
+     * If already in the critical section, prints an error and halts the system.
+     */
+    void enter();
+
+    /**
+     * Method to leave the critical section.
+     * If not in the critical section, prints an error and halts the system.
+     */
+    void retne();
+
+    /**
+     * Method to check if the critical section is free.
+     * @return True if the critical section is free, false otherwise.
+     */
+    bool avail() const;
 };
 
 #endif

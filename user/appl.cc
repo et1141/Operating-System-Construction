@@ -13,7 +13,7 @@
 
 #include "user/appl.h"
 #include "user/globals.h"
-
+#include "guard/secure.h"
 
 /* GLOBAL VARIABLES are moved to globals.h*/
 
@@ -40,6 +40,16 @@ void Application::action()
     pic.allow(pic.timer);
     keyboard.plugin();
     
+
+    // Simulate critical section
+    {
+        Secure section;
+        // Inside critical section, simulate some work
+        kout << "Entering critical section...\n";
+    } // Secure object goes out of scope, leaving critical section
+
+    kout << "Left critical section, interrupts should be handled now.\n";
+
 
     while(true){}; 
 }

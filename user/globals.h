@@ -13,11 +13,11 @@
 extern CGA_Stream kout;
 
 
+extern Guard guard;
 extern CPU cpu;
 extern Plugbox plugbox;
 extern PIC pic;
 extern Keyboard keyboard;
-extern Guard guard;
 
 #endif // GLOBALS_H
 

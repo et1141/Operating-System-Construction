@@ -16,28 +16,36 @@
 
 #include "object/chain.h"
 
-class Gate: public Chain{
-    protected:
-    bool is_queued; // determine whether a Gate object has already been added to the epilogue queue
-    
-    public:
-    /**
-     * Interrupt-handler routine that is executed immediately after the interrupt occurs, asynchronously to other kernel activities. The return value signals whether the epilogue should be executed.
+class Gate : public Chain {
+private:
+   bool _queued; // Flag indicating whether epilogue is queued
+
+public:
+   Gate() : _queued(false) {}
+
+   /** 
+    * Interrupt handling function.
+    * Should be overridden in derived classes.
     */
-    virtual bool prologue (){return true;};
-    /**
-     * Potentially delayed and synchronously executed interrupt handler.
+   virtual bool prologue() {
+       return false; // By default, does not require executing epilogue
+   }
+
+   /**
+    * Default implementation of epilogue.
+    * Can be overridden in derived classes.
     */
-    virtual void epilogue (){};
-    /**
-     * Sets a flag that remembers whether the epilogue is enqueued.
-    */
-    void queued (bool q){is_queued = q;};    
-    
-    /**
-     * Checks whether the epilogue is enqueued.
-    */
-    bool queued (){return is_queued;};
+   virtual void epilogue() {}
+
+   // Setter for _queued flag
+   void queued(bool q) {
+       _queued = q;
+   }
+
+   // Getter for _queued flag
+   bool queued() const {
+       return _queued;
+   }
 };
 
 #endif

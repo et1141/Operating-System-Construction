@@ -13,20 +13,31 @@
 #ifndef __Guard_include__
 #define __Guard_include__
 
-/* Add your code here */ 
-#include "guard/locker.h"
+include "guard/gate.h"
 #include "object/queue.h"
-#include "guard/gate.h"
+#include "guard/locker.h"
+#
 
 class Guard : public Locker {
 private:
+    Queue epilogue_queue;
+
 public:
 	Queue queue;
 	Guard (const Guard &copy) = delete; // prevent copying
-	void relay(Gate * item);
-	void leave();
-	Guard(){}
-/* Add your code here */ 
+	Guard () {}
+
+    /**
+     * Method to leave the critical section. Accumulated epilogues can be processed now.
+     */
+    void leave();
+
+    /**
+     * Method to relay epilogue execution. If the critical section is occupied, the epilogue is queued.
+     * @param item Pointer to the Gate object whose epilogue should be executed.
+     */
+    void relay(Gate* item);
+
 };
 
 #endif

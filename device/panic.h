@@ -22,7 +22,14 @@ class Panic: public Gate
 public:
 	Panic (const Panic &copy) = delete; // prevent copying
 	Panic () {}
-    void epilogue ();
+    void trigger ();
+
+    /**
+     * Prologue method for the Panic class.
+     * Prints an error message and stops the CPU.
+     * @return Always returns false as no epilogue is needed.
+     */
+	bool prologue() override;
 };
 
 #endif

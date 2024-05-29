@@ -15,7 +15,9 @@
 /**
  * Default interrupt handler. Called when an interrupt without a handler is triggered. Prints an error message and stops the CPU.
 */
-void Panic::epilogue(){
-    kout.print("panic_interrupt_handling",25,5);
+
+bool Panic::prologue(){
+    kout << "Panic: Unhandled interrupt or exception occurred!\n";
     cpu.halt();
-}
+    return false;
+}       
