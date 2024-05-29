@@ -16,19 +16,17 @@
 
 
 void Guard::leave() {
-
     // Process accumulated epilogues
+    cpu.disable_int();//disable for the first iteration // beofre retne
     while (!epilogue_queue.empty()) {
-        cpu.disable_int(); //we don't want interrupt when we work with the queue
         Gate* gate = static_cast<Gate*>(epilogue_queue.dequeue());
         gate->queued(false); //the gate obj is not queued so we can add it to the queue again
         cpu.enable_int(); // we can be interrupted while we are executing the epilogue 
         gate->epilogue();
+        cpu.disable_int(); //we don't want interrupt when we work with the queue
     }
-    //there is possible problem when we are interrupted right after leaving the while loop and before executing retne
-    // why? because relay wil enque epilogue of the interrupt, and it won't be executed until next call of leave().
-    guard.retne(); //reset epilogue lock <=> incomming interrupt epilogue is executed directly 
-     
+    guard.retne(); 
+    cpu.enable_int(); //if interrupt happens now it's epilogue will be handled directly.
 }
 
 void Guard::relay(Gate* item) {
