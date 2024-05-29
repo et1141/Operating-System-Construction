@@ -13,10 +13,10 @@
 #ifndef __Guard_include__
 #define __Guard_include__
 
-include "guard/gate.h"
 #include "object/queue.h"
 #include "guard/locker.h"
-#
+#include "guard/gate.h"
+
 
 class Guard : public Locker {
 private:

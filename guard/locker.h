@@ -18,7 +18,7 @@
 
 class Locker {
 private:
-    bool _is_free;
+    bool _is_free; //true if the critical section is free 
 
 public:
     /**

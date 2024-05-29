@@ -27,6 +27,8 @@ Application::Application()
     test_cga_screen();
     test_cga_stream();
     test_debian_logo();
+    test_keyboard_controller();
+    
 
    // test_keyboard_controller();
 }
@@ -40,18 +42,7 @@ void Application::action()
     pic.allow(pic.timer);
     keyboard.plugin();
     
-
-    // Simulate critical section
-    {
-        Secure section;
-        // Inside critical section, simulate some work
-        kout << "Entering critical section...\n";
-    } // Secure object goes out of scope, leaving critical section
-
-    kout << "Left critical section, interrupts should be handled now.\n";
-
-
-    while(true){}; 
+    while(true){}
 }
 
 void Application::test_cga_screen()
@@ -120,6 +111,7 @@ void Application::test_keyboard_controller()
     keyboard.keyboard_controller.set_led(2, true);
     keyboard.keyboard_controller.set_led(4, true);
 
+    /*
     // Print instructions
     kout.print("\nClick q to quit keyboard testing while loop", 45, 4);
     kout.print("\nClick m to set minimum(31) repeat_rate", 40, 4);
@@ -159,4 +151,5 @@ void Application::test_keyboard_controller()
             kout.print(pressedKey, 1, 6);
         }
     }
+    */
 }
