@@ -15,10 +15,16 @@
 
 /* Add your code here */ 
 #include "guard/locker.h"
+#include "object/queue.h"
+#include "guard/gate.h"
 
 class Guard : public Locker {
+private:
 public:
+	Queue queue;
 	Guard (const Guard &copy) = delete; // prevent copying
+	void relay(Gate * item);
+	void leave();
 	Guard(){}
 /* Add your code here */ 
 };

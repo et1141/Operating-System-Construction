@@ -18,13 +18,13 @@
 
 class Locker {
 private:
-	bool lock;
+	bool free; //1
 public:
 	Locker(const Locker &copy) = delete; // prevent copying
 	/**
 	 * Constructor that initializes the lock variable (free).
 	*/
-	Locker(){lock=false;}
+	Locker(){free=true;}
 	/**
 	 * This method must be called when entering the critical section.
 	*/
@@ -38,7 +38,7 @@ public:
 	/**
 	 * Indicates whether the critical section is free. 
 	*/
-	bool avail (){return lock;}
+	bool avail (){return free;}
 };
 
 #endif

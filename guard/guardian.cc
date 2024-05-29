@@ -26,11 +26,13 @@ void guardian (unsigned int slot)
 {
     if (slot !=plugbox.timer){
         if(plugbox.report(slot).prologue()){
-            plugbox.report(slot).epilogue();
+            guard.relay(&plugbox.report(slot));
         }
     }
     else if(slot==42){
-        kout.print("ENTERING OR LEAVING CRITICAL SECTION TWICE!",44,5);
-    }
+            kout.print("ENTERING OR LEAVING CRITICAL SECTION TWICE!",44,5);
+        }    
 }
 
+
+        

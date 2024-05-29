@@ -11,3 +11,15 @@
 /*****************************************************************************/
 
 /* Add your code here */ 
+#include "guard/guard.h"
+#include "user/globals.h"
+
+void Guard::relay(Gate * item){
+    if (guard.avail()){
+        cpu.enable_int(); //Since in our implementation interrupts are disabled before guardian() is called, they must be enabled again "manually" 
+        item->epilogue();
+    }
+    else{
+        queue.enqueue(item);
+    }
+}

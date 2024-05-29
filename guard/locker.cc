@@ -7,14 +7,14 @@ extern "C" void guardian(unsigned int slot);
 
 
 void Locker::enter(){
-    if(lock)
+    if(free)
         guardian(42);
     else
-        lock=true;
+        free=false;
 }
 void Locker::retne (){
-    if(!lock)
+    if(!free)
         guardian(42);
     else 
-        lock=false;
+        free=true;
 }
