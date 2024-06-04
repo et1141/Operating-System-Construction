@@ -9,14 +9,50 @@
 /* in case of a context switch. toc_settle prepares the initial stack and    */
 /* the toc struct for the first activation.                                  */
 /*****************************************************************************/
-
+#include <stdio.h>
 #include "machine/toc.h"
 
-// TOC_SETTLE: Prepares a coroutine context for its first activation.
+/**
+ * Prepares a coroutine context for its first activation.
+*/
 void toc_settle(struct toc *regs, void *tos,
 		void (*kickoff)(void *, void *, void *, void *, void *, void *,
 				void *),
 		void *object)
 {
-/* Add your code here */ 
+	regs->rbx = NULL;
+	regs->r12 = NULL;
+	regs->r13 = NULL;
+	regs->r14 = NULL;
+	regs->r15 = NULL;
+	regs->rbp = NULL;
+	regs->rsp = tos; //set stack pointer	
+
+
+    // Place the kickoff function and the object on the stack so that
+    // when the coroutine is first started, it will call kickoff(object)
+    void** stack = (void**)tos;
+    *(--stack) = (void*)kickoff; 
+    *(--stack) = object;         
+
+    // Update the stack pointer in the toc struct
+    regs->rsp = stack;
 }
+
+
+/* Notes:
+
+General schema for coroutine activation:
+
+extern "C" void resume( SP& from_sp, SP& to_sp ) {
+	// current stack frame is the continuation of the
+	//to-be-suspended control flow (caller of resume) 
+	< push non-volatile registers on the stack >
+	< save CPU stack pointer in from_sp >
+	< load CPU stack pointer from to_sp >
+	< pop non-volatile registers from the stack >
+	//current stack frame is the continuation of the
+	//to-be-(re)activated control flow 
+} // return
+
+*/

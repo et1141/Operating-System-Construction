@@ -20,14 +20,15 @@
 Key key;
 
 
-Application::Application()
-{
-    keyboard.plugin(); // need to plug the keyboard here because otherwise test functions call interrupt => panic is called and halts the CPU.
+Application::Application(void* tos) : Coroutine(tos) {
+    cpu.enable_int();
+    pic.allow(pic.timer);
+    keyboard.plugin(); 
 
-    test_cga_screen();
-    test_cga_stream();
-    test_debian_logo();
-    test_keyboard_controller();
+  //  test_cga_screen();
+  //  test_cga_stream();
+  //  test_debian_logo();
+  //  test_keyboard_controller();
     
 
    // test_keyboard_controller();
@@ -37,12 +38,10 @@ Application::Application()
  * Test the keyboard interrupt handling. 
 */
 void Application::action()
- {
-    cpu.enable_int();
-    pic.allow(pic.timer);
-    keyboard.plugin();
-    
-    while(true){}
+ {    
+    while(true){
+        kout.print("1", 1, 4);
+    }
 }
 
 void Application::test_cga_screen()
