@@ -237,11 +237,11 @@ Key Keyboard_Controller::key_hit()
 
 	Key invalid; // not explicitly initialized Key objects are invalid
 
+	
     //check if keypress event is waiting to be processed
     if (!(ctrl_port.inb() & 0x01)) {
         return invalid; //no key pressed
     }
-
     //read scan code from the data port
     code = data_port.inb(); //code is private attr.
 
@@ -296,7 +296,7 @@ void Keyboard_Controller::reboot()
 
 void Keyboard_Controller::set_repeat_rate(int speed, int delay)
 {
-	
+	bool flag = pic.is_masked(pic.keyboard);
 	pic.forbid(pic.keyboard); //hard interrupt synchronization: enable to be sure that the keyboard controller is not interrupted by the CPU while processing the command
 					   //in case when we are in the middle of IO operation, we don't want to be interrupted by the CPU because that may cause a mess in the data transfer
 
@@ -316,7 +316,9 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay)
 	int const mask = ((speed & 0x1f) |delay << 5)&0x7f; //speed: bits 0-4, delay bits 5,6
     data_port.outb(mask);
 
-	pic.allow(pic.keyboard);
+	if (!flag){
+		pic.allow(pic.keyboard);
+	}
 
 }
 

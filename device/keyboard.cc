@@ -11,9 +11,6 @@
 #include "user/globals.h"
 
 
-Keyboard::Keyboard(){
-    Keyboard_Controller keyboard_controller;
-}
 
 /**
  * "Plugs in" the keyboard (driver). After calling keyboard interrupts are handled with the Keyboard::trigger method. 
@@ -24,7 +21,7 @@ void Keyboard::plugin(){
 }
 
 bool Keyboard::prologue(){
-    key = keyboard_controller.key_hit();
+    key = key_hit();
     if (key.valid()){
         if (key.alt() && key.ctrl_left() && key.scancode() ==83 ){ //ctral+alt+del => reboot
 		    reboot();
@@ -46,11 +43,12 @@ void Keyboard::epilogue(){
 //function from task2 - hard synchronization version
 void Keyboard::trigger(){
     kout.setpos(0,24);
-    Key key = keyboard_controller.key_hit();
-    if (key.valid()){
+    Key key = key_hit();
+    while (key.valid()){
         char pressedKey[2];
         pressedKey[0] = (char)key.ascii();
-        pressedKey[1] = '\0'; //not necessary, but for safety
+        pressedKey[1] = '\0'; //not necessary, but for safety        
         kout.print(pressedKey, 1, 6);
+        key = key_hit();
     }
 }
