@@ -46,9 +46,7 @@ void guardian(unsigned int slot) {
 
 void guardian (unsigned int slot)
 {
-    cpu.enable_int();
     if (slot !=plugbox.timer){
         keyboard.trigger();
-
     }
 }

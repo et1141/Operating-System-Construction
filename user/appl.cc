@@ -42,7 +42,15 @@ void Application::action()
     pic.allow(pic.timer);
     keyboard.plugin();
     
-    while(true){}
+    while(true){
+        cpu.disable_int();
+        kout.setpos(4,4);
+        kout.print("5", 1, 4);
+        cpu.enable_int();
+        for(int i=0;i<10000;i++){
+
+        }
+    }
 }
 
 void Application::test_cga_screen()

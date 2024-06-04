@@ -20,10 +20,9 @@ private:
     Key key;
 public:
 	Keyboard(const Keyboard &copy) = delete; // prevent copying
-	Keyboard(); 
+	Keyboard(){}; 
 
 	void plugin();
-	Keyboard_Controller keyboard_controller; // shoud i=be private? (test_keyboard_controller is using the object, so when make private it will have to define another Keyboard_Controller object)
 
 	/**
      * This method responds to interrupts from the keyboard. 
