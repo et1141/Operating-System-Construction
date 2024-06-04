@@ -14,6 +14,7 @@
 #include "user/appl.h"
 #include "user/globals.h"
 #include "guard/secure.h"
+#include "machine/keyctrl.h"
 
 /* GLOBAL VARIABLES are moved to globals.h*/
 
@@ -113,11 +114,12 @@ void Application::test_debian_logo()
 
 void Application::test_keyboard_controller()
 {
-
-    keyboard.keyboard_controller.set_repeat_rate(0, 3);
-    keyboard.keyboard_controller.set_led(1, true);
-    keyboard.keyboard_controller.set_led(2, true);
-    keyboard.keyboard_controller.set_led(4, true);
+    Keyboard_Controller keyboard_controller;
+    
+    keyboard_controller.set_repeat_rate(0, 3);
+    keyboard_controller.set_led(1, true);
+    keyboard_controller.set_led(2, true);
+    keyboard_controller.set_led(4, true);
 
     /*
     // Print instructions
