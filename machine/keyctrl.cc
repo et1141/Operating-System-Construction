@@ -326,6 +326,8 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay)
 
 void Keyboard_Controller::set_led(char led, bool on)
 {
+	bool flag = pic.is_masked(pic.keyboard);
+
 	pic.forbid(pic.keyboard); 	//1. Before sending a byte to the keyboard, you should make sure that the input buffer is empty (status register, inpb),
 	int status;
 	do {
@@ -353,6 +355,7 @@ void Keyboard_Controller::set_led(char led, bool on)
 
 
 	data_port.outb(leds);
-
-	pic.allow(pic.keyboard);
+	if (!flag){
+		pic.allow(pic.keyboard);
+	}
 } 
