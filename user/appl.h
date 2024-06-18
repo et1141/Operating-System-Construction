@@ -14,10 +14,13 @@
 
 class Application: public Coroutine
 {
+private:
+	char* dig;
 public:
-	Application(void *tos);
+	Application(void *tos,char* c);
 	Application(const Application &copy) = delete; // prevent copying
 	void action() override;
+	
 	
 	void test_cga_screen();
 	void test_cga_stream();

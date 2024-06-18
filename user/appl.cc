@@ -20,10 +20,12 @@
 Key key;
 
 
-Application::Application(void* tos) : Coroutine(tos) {
-    cpu.enable_int();
-    pic.allow(pic.timer);
-    keyboard.plugin(); 
+Application::Application(void* tos, char* c) : Coroutine(tos) {
+  //  cpu.enable_int();
+  //  pic.allow(pic.timer);
+  //  keyboard.plugin(); 
+    dig=c;
+
 
   //  test_cga_screen();
   //  test_cga_stream();
@@ -40,7 +42,8 @@ Application::Application(void* tos) : Coroutine(tos) {
 void Application::action()
  {    
     while(true){
-        kout.print("1", 1, 4);
+        kout.print(dig, 1, 4);
+        
     }
 }
 

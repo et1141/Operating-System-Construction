@@ -31,9 +31,10 @@
 
 
 
-    Coroutine::Coroutine(void* tos) {
-        toc_settle(&register_contents, tos, kickoff, this);
-    }
+Coroutine::Coroutine(void* tos) {
+     toc_settle(&register_contents, tos, reinterpret_cast<void (*)(void*, void*, void*, void*, void*, void*, void*)>(kickoff), this);
+    //toc_settle(&register_contents, tos, kickoff, this);
+}
 
 
     void Coroutine::go() {

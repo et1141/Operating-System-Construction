@@ -23,7 +23,9 @@ extern "C" void guardian (unsigned int slot);
  * @param slot interrupt numer. Firs 32 are reserved for CPU exceptions, the rest for hardware and software interrupts. Eg: 0 is the CPU exception for division by zero, 32 is the hardware interrupt for the timer, 33 is keyboard interrupt.
 */
 void guardian(unsigned int slot) {    
+    
     if (slot !=plugbox.timer){
+
         // Find the corresponding Gate object using the interrupt number
         Gate& gate = plugbox.report(slot);
         

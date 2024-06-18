@@ -25,13 +25,13 @@
 
 toc_go:
 ; rdi points to begining of struct toc
-    mov rsp, [rdi]       ;rsp=regs->rsp;
-    mov rbx, [rdi+8]     
-    mov r12, [rdi+16]    
-    mov r13, [rdi+24]    
-    mov r14, [rdi+32]    
-    mov r15, [rdi+40]    
-    mov rbp, [rdi+48]    
+    mov rbx, [rdi]     
+    mov r12, [rdi+8]    
+    mov r13, [rdi+16]    
+    mov r14, [rdi+24]    
+    mov r15, [rdi+32]    
+    mov rbp, [rdi+40]    
+    mov rsp, [rdi+48]
     ret
 
 ; TOC_SWITCH: Context switch. Saves the current register values and replaces

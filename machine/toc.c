@@ -11,6 +11,7 @@
 /*****************************************************************************/
 #include <stdio.h>
 #include "machine/toc.h"
+#include <stdint.h>
 
 /**
  * Prepares a coroutine context for its first activation.
@@ -26,17 +27,20 @@ void toc_settle(struct toc *regs, void *tos,
 	regs->r14 = NULL;
 	regs->r15 = NULL;
 	regs->rbp = NULL;
-	regs->rsp = tos; //set stack pointer	
 
 
-    // Place the kickoff function and the object on the stack so that
-    // when the coroutine is first started, it will call kickoff(object)
-    void** stack = (void**)tos;
-    *(--stack) = (void*)kickoff; 
-    *(--stack) = object;         
+ 
+    uint64_t *stack = (uint64_t *)tos;
 
-    // Update the stack pointer in the toc struct
-    regs->rsp = stack;
+	//adresses are 2 bytes long
+	stack-=2;
+	*(stack)=(uint64_t)object;
+    
+    stack-=2;
+	*(stack) = (uint64_t)kickoff; 
+
+    regs->rsp = (uint64_t)stack;
+
 }
 
 

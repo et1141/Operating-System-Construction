@@ -15,9 +15,9 @@
 #include "thread/kickoff.h"
 #include "thread/coroutine.h"
 
-void kickoff(void* dummy1, void* dummy2, void* dummy3, void* dummy4, void* dummy5, void* dummy6, void* object){
-    //object->action();
-    static_cast<Coroutine*>(object)->action();
+void kickoff(void* dummy1, void* dummy2, void* dummy3, void* dummy4, void* dummy5, void* dummy6, Coroutine* object){
+    object->action();
+   // static_cast<Coroutine*>(object)->action();
 }
 /* Add your code here */ 
  
