@@ -15,12 +15,36 @@
 #ifndef __dispatch_include__
 #define __dispatch_include__
 
-/* Add your code here */ 
+#include "thread/coroutine.h"
+
 
 class Dispatcher {
+private:
+	Coroutine *life;
 public:
 	Dispatcher(const Dispatcher &copy) = delete; // prevent copying
-/* Add your code here */ 
+
+	/**
+	 *     The constructor initializes the life pointer with null to indicate that no coroutine is known yet.
+	 */
+	Dispatcher();
+
+	/**
+	 *     With this method the coroutine first is put in the life pointer and started.
+	 */
+    void go(Coroutine &first);
+
+	/**
+	 *     This method sets the life pointer to next and performs a coroutine switch from the old to the new life pointer.
+	 */
+    void dispatch(Coroutine &next);
+
+
+	/**
+	 *     This can be used to determine which coroutine is currently in control of the processor.
+	 */
+    Coroutine *active();
+
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include "user/appl.h"
+#include "thread/dispatch.h"
 #include <stdlib.h>
 #include <stdlib.h>
 
@@ -20,12 +21,13 @@ int main()
     Application app1(tos1,"1");
     Application app2(tos2,"2");
 
-
-    // Start the first coroutine
-  
- //   app1.go();
-  
-    app2.go();
+    // Create the dispatcher
+    Dispatcher dispatcher;
+    dispatcher.go(app1);
+    dispatcher.dispatch(app2);
+      
+    
+    
     
 	return 0;
 }
