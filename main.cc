@@ -25,6 +25,7 @@ int main()
     // Create the dispatcher
     Dispatcher dispatcher;
     dispatcher.go(app1);
+    
     dispatcher.dispatch(app2);
       
     Scheduler scheduler;
@@ -39,3 +40,4 @@ int main()
     
 	return 0;
 }
+

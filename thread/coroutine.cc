@@ -37,10 +37,10 @@ Coroutine::Coroutine(void* tos) {
 }
 
 
-    void Coroutine::go() {
+void Coroutine::go() {
         toc_go(&register_contents);
-    }
+}
 
-    void Coroutine::resume(Coroutine& next) {
+void Coroutine::resume(Coroutine& next) {
         toc_switch(&register_contents, &next.register_contents);
-    }
+}
