@@ -10,10 +10,9 @@
 
 #ifndef __application_include__
 #define __application_include__
-#include "thread/coroutine.h"
+#include "thread/entrant.h"
 
-class Application: public Coroutine
-{
+class Application : public Entrant {
 private:
 	char* dig;
 public:

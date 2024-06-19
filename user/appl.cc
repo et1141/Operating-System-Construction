@@ -21,7 +21,7 @@
 Key key;
 
 
-Application::Application(void* tos, char* c) : Coroutine(tos) {
+Application::Application(void* tos, char* c) : Entrant(tos) {
   //  cpu.enable_int();
   //  pic.allow(pic.timer);
   //  keyboard.plugin(); 

@@ -29,8 +29,8 @@ int main()
       
     Scheduler scheduler;
 
-    //scheduler.ready(static_cast<Coroutine>(app1));
-    //scheduler.ready(static_cast<Coroutine>(app2));
+    scheduler.ready(app1);
+    scheduler.ready(app2);
 
     // Start the scheduler
     scheduler.schedule();
