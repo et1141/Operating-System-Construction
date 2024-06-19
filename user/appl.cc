@@ -14,6 +14,7 @@
 #include "user/appl.h"
 #include "user/globals.h"
 #include "guard/secure.h"
+#include "thread/scheduler.h"
 
 /* GLOBAL VARIABLES are moved to globals.h*/
 

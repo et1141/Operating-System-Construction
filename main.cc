@@ -1,5 +1,6 @@
 #include "user/appl.h"
 #include "thread/dispatch.h"
+#include "thread/scheduler.h"
 #include <stdlib.h>
 #include <stdlib.h>
 
@@ -26,7 +27,14 @@ int main()
     dispatcher.go(app1);
     dispatcher.dispatch(app2);
       
-    
+    Scheduler scheduler;
+
+    //scheduler.ready(static_cast<Coroutine>(app1));
+    //scheduler.ready(static_cast<Coroutine>(app2));
+
+    // Start the scheduler
+    scheduler.schedule();
+
     
     
 	return 0;

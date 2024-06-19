@@ -13,10 +13,13 @@
 
 /* Add your code here */ 
 
-class Entrant
-/* Add your code here */ 
-{
+#include "object/chain.h"
+#include "thread/coroutine.h"
+
+class Entrant : public Chain, public Coroutine {
 public:
+    Entrant(void* tos) : Coroutine(tos) {}
+
 	Entrant(const Entrant &copy) = delete; // prevent copying
 
 /* Add your code here */ 
