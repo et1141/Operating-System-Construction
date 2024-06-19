@@ -44,10 +44,9 @@ void Application::action()
     keyboard.plugin();
     
     while(true){
-        cpu.disable_int();
+        Secure secure;
         kout.setpos(4,4);
         kout.print("5", 1, 4);
-        cpu.enable_int();
         for(int i=0;i<10000;i++){
 
         }
