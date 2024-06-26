@@ -33,7 +33,7 @@ class User_process_1 : public Coroutine
     } 
  
     	void action() override{
-            for (int i=0;i<50;i++){
+            for (int i=0;i<200;i++){
             kout.print("User_process_1\n",16,4);
             }
             this->resume(*next);
@@ -50,7 +50,7 @@ class User_process_2 : public Coroutine
         next = next_c;
     } 
     	void action() override{
-            for (int i=0;i<100;i++){
+            for (int i=0;i<200;i++){
             kout.print("User_process_2\n",16,4);
             }
             this->resume(*next);
@@ -78,6 +78,7 @@ Application::Application(void* tos, char* c) : Entrant(tos) {
 */
 void Application::action()
  {    
+    /*
     void* tos1 = stack_user_process1 + 512;
     void* tos2 = stack_user_process2 + 512;
     
@@ -88,9 +89,14 @@ void Application::action()
 
     this->resume(user_process1);
 
+*/
+    int i=0;
     while(true){
         kout.print(dig, 1, 4);
-        
+        if(i%2000==0){
+            scheduler.resume();
+        }
+        i++;
     }
 }
 

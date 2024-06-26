@@ -8,3 +8,4 @@ Plugbox plugbox;
 PIC pic;
 Keyboard keyboard;
 Guard guard;
+Scheduler scheduler;

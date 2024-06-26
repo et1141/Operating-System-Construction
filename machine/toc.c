@@ -30,16 +30,16 @@ void toc_settle(struct toc *regs, void *tos,
 
 
  
-    uint64_t *stack = (uint64_t *)tos;
+    void ** stack = (void **)tos;
 
 	//adresses are 2 bytes long
-	stack-=2;
-	*(stack)=(uint64_t)object;
+	stack-=1;
+	*(stack) = object;
     
     stack-=2;
-	*(stack) = (uint64_t)kickoff; 
+	*(stack) = kickoff; 
 
-    regs->rsp = (uint64_t)stack;
+    regs->rsp = (void *)stack;
 
 }
 
