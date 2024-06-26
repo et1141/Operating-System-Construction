@@ -15,7 +15,7 @@
 #include "secure.h"
 #include "thread.h"
 
-class Guarded_Scheduler
+class Guarded_Scheduler : public Scheduler
 {
 public:
 	Guarded_Scheduler(const Guarded_Scheduler &copy) = delete; // prevent copying
