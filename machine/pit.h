@@ -20,9 +20,11 @@ public:
 		interval (us);
 	}
 	int interval() {
-/* Add your code here */ 
+		return current_interval;
 	}
 	void interval(int us);
+private:
+	int current_interval;
 };
 
 #endif

@@ -7,5 +7,16 @@
 /*---------------------------------------------------------------------------*/
 /* Programmable Interval Timer.                                              */
 /*****************************************************************************/
+#include "pit.h"
 
-/* Add your code here */ 
+void PIT::initialize(int us) {
+    set_timer(us);
+}
+
+int PIT::interval() const {
+    return current_interval;
+}
+
+void PIT::interval(int us) {
+    set_timer(us);
+}
