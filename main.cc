@@ -16,7 +16,7 @@ char stack2[STACK_SIZE];
 
 int main()
 {
-
+    Locker locker;
     void* tos1 = stack1 + STACK_SIZE;
     void* tos2 = stack2 + STACK_SIZE;
 
@@ -34,10 +34,6 @@ int main()
 
     // Start the scheduler
     scheduler.schedule();
-
-
-
-    
     
 	return 0;
 }
