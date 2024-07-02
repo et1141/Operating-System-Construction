@@ -13,18 +13,21 @@
 
 class PIT {
 public:
-	PIT(const PIT &copy) = delete; // prevent copying
-/* Add your code here */ 
-public:
-	PIT(int us) {
-		interval (us);
-	}
-	int interval() {
-		return current_interval;
-	}
-	void interval(int us);
+    // Constructor that initializes the timer with the given interval in microseconds
+    PIT(int us);
+
+    // Returns the currently set interrupt interval
+    int interval() const;
+
+    // Sets a new interrupt interval in microseconds
+    void interval(int us);
+
 private:
-	int current_interval;
+    int current_interval;
+
+    // Sets the PIT timer with the given interval
+    void set_timer(int us);
 };
+
 
 #endif
