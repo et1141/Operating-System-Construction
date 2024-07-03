@@ -11,22 +11,26 @@
 #ifndef __pit_include__
 #define __pit_include__
 
+#include "machine/io_port.h"
+
 class PIT {
+private:
+    int current_interval = 0;
+    IO_Port m_ctrl{0x43};
+    IO_Port m_t0{0x40};
+
 public:
+    PIT(const PIT &copy) = delete;
     // Constructor that initializes the timer with the given interval in microseconds
-    PIT(int us);
+    PIT(int us){interval(us);};
 
     // Returns the currently set interrupt interval
-    int interval() const;
+    int interval() { return current_interval;}
 
     // Sets a new interrupt interval in microseconds
     void interval(int us);
 
-private:
-    int current_interval;
 
-    // Sets the PIT timer with the given interval
-    void set_timer(int us);
 };
 
 

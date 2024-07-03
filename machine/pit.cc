@@ -7,8 +7,10 @@
 /*---------------------------------------------------------------------------*/
 /* Programmable Interval Timer.                                              */
 /*****************************************************************************/
-#include "pit.h"
+#include "machine/pit.h"
 #include "machine/io_port.h"
+#include <stdint.h>
+
 
 // Constants for PIT control
 #define PIT_FREQUENCY 1193182 // PIT frequency in Hz
@@ -16,30 +18,27 @@
 #define PIT_PORT_CHANNEL0 0x40
 #define PIT_PORT_COMMAND 0x43
 
-PIT::PIT(int us) {
-    set_timer(us);
-}
 
-int PIT::interval() const {
-    return current_interval;
-}
+constexpr int PERIODIC_INTERRUPT = 0b010;
 
 void PIT::interval(int us) {
-    set_timer(us);
-}
-
-void PIT::set_timer(int us) {
     current_interval = us;
 
-    // Calculate the divisor for the desired interval
-    int divisor = (PIT_FREQUENCY * us) / 1000000;
+    constexpr int count_bcd = false;
+    constexpr int mode = PERIODIC_INTERRUPT << 1;
+    constexpr int read_write = 0b11 << 4;
+    constexpr int counter = 0b00 << 6;
+    constexpr int config = counter | read_write | mode | count_bcd;
 
-    // Send the command byte to the PIT control port
-    outb(PIT_PORT_COMMAND, PIT_COMMAND);
+    static_assert(config == 0b00110100);
+    m_ctrl.outb(config);
 
-    // Send the divisor (low byte)
-    outb(PIT_PORT_CHANNEL0, divisor & 0xFF);
-
-    // Send the divisor (high byte)
-    outb(PIT_PORT_CHANNEL0, (divisor >> 8) & 0xFF);
+    constexpr auto step =  (int) ((1.F / 1193182.F) * (1000.F * 1000.F) * 1000.F);
+    static_assert(step == 838);
+    int interval = (us * 1000 + step / 2) / step;
+    if (interval > UINT16_MAX) {
+        interval = UINT16_MAX;
+    }
+    m_t0.outb(interval & 0xFF);         // low byte
+    m_t0.outb((interval & 0xFF00) >> 8);
 }

@@ -15,6 +15,7 @@
 #include "user/globals.h"
 #include "guard/secure.h"
 #include "thread/scheduler.h"
+#include "device/watch.h"
 
 /* GLOBAL VARIABLES are moved to globals.h*/
 
@@ -57,20 +58,12 @@ class User_process_2 : public Coroutine
         }
 };
 
-Application::Application(void* tos, char* c) : Entrant(tos) {
-  //  cpu.enable_int();
-  //  pic.allow(pic.timer);
-  //  keyboard.plugin(); 
+Application::Application(void* tos, char* c) : Thread(tos) {
+    cpu.enable_int();
+    Watch timer(400);
+    timer.windup();
+    keyboard.plugin(); 
     dig=c;
-
-
-  //  test_cga_screen();
-  //  test_cga_stream();
-  //  test_debian_logo();
-  //  test_keyboard_controller();
-    
-
-   // test_keyboard_controller();
 }
 
 /**
@@ -78,24 +71,9 @@ Application::Application(void* tos, char* c) : Entrant(tos) {
 */
 void Application::action()
  {    
-    /*
-    void* tos1 = stack_user_process1 + 512;
-    void* tos2 = stack_user_process2 + 512;
-    
-	// Create the application coroutines
-    User_process_2 user_process2(tos2,this);
-
-    User_process_1 user_process1(tos1,&user_process2);
-
-    this->resume(user_process1);
-
-*/
     int i=0;
     while(true){
         kout.print(dig, 1, 4);
-        if(i%2000==0){
-            scheduler.resume();
-        }
         i++;
     }
 }

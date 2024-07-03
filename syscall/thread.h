@@ -12,7 +12,7 @@
 #define __thread_include__
 
 /* Add your code here */ 
- #include "entrant.h"
+ #include "thread/entrant.h"
 class Thread : public Entrant {
 public:
     // Constructor that initializes the Thread with a top-of-stack pointer

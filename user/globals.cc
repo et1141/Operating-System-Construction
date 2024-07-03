@@ -1,6 +1,7 @@
 #include "user/globals.h"
 
 
+
 CGA_Stream kout;
 
 CPU cpu;
@@ -8,4 +9,4 @@ Plugbox plugbox;
 PIC pic;
 Keyboard keyboard;
 Guard guard;
-Scheduler scheduler;
+Guarded_Scheduler scheduler;

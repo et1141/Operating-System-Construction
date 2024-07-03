@@ -9,10 +9,10 @@
 /* process switch if necessary.                                              */
 /*****************************************************************************/
 
-#include "watch.h"
-#include "plugbox.h"
-#include "pic.h"
-#include "guarded_scheduler.h"
+#include "device/watch.h"
+#include "machine/plugbox.h"
+#include "machine/pic.h"
+#include "syscall/guarded_scheduler.h"
 #include "user/globals.h"
 
 Watch::Watch(int us) : PIT(us) {
@@ -28,9 +28,6 @@ void Watch::windup() {
 }
 
 bool Watch::prologue() {
-    // Prologue of the interrupt handler
-    // Handle the beginning of the interrupt
-    // For simplicity, always return true to indicate that the epilogue should be called
     return true;
 }
 

@@ -7,8 +7,8 @@
 /*---------------------------------------------------------------------------*/
 /* Implements the system-call interface to the Scheduler.                    */
 /*****************************************************************************/
-#include "guarded_scheduler.h"
-#include "secure.h"
+#include "syscall/guarded_scheduler.h"
+#include "guard/secure.h"
 
 void Guarded_Scheduler::ready(Thread& that) {
     Secure secure; // Enter critical section

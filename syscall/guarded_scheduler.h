@@ -11,9 +11,8 @@
 #ifndef __guarded_scheduler_include__
 #define __guarded_scheduler_include__
 
-#include "scheduler.h"
-#include "secure.h"
-#include "thread.h"
+#include "thread/scheduler.h"
+#include "syscall/thread.h"
 
 class Guarded_Scheduler : public Scheduler
 {
