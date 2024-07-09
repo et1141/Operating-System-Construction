@@ -16,6 +16,7 @@
 
     #include "thread/coroutine.h"
     #include "thread/kickoff.h"
+    #include "user/globals.h"
 
     // Functions that are implemented at C or assembler level must be declared as
     // extern "C", because they do not conform to C++ name mangling.

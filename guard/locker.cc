@@ -1,5 +1,6 @@
 
 #include "guard/locker.h"
+#include "user/globals.h"
 
 
 extern "C" void guardian(unsigned int slot);
@@ -8,14 +9,15 @@ extern "C" void guardian(unsigned int slot);
 
 void Locker::enter(){
     if(!_is_free)
-        guardian(42);
+        kout<<"ENTERING  CRITICAL SECTION TWICE!\n";
+       // guardian(42);
     else
         _is_free=false;
 }
 
 void Locker::retne (){
     if(_is_free)
-        guardian(42);
+        kout<<"LEAVING CRITICAL SECTION TWICE!\n";
     else 
         _is_free=true;
 }

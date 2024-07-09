@@ -59,10 +59,6 @@ class User_process_2 : public Coroutine
 };
 
 Application::Application(void* tos, char* c) : Thread(tos) {
-    cpu.enable_int();
-    Watch timer(400);
-    timer.windup();
-    keyboard.plugin(); 
     dig=c;
 }
 
@@ -71,10 +67,8 @@ Application::Application(void* tos, char* c) : Thread(tos) {
 */
 void Application::action()
  {    
-    int i=0;
     while(true){
         kout.print(dig, 1, 4);
-        i++;
     }
 }
 
