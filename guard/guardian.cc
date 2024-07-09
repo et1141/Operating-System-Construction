@@ -30,6 +30,7 @@ void guardian(unsigned int slot) {
         
         // Execute the prologue method of the Gate object
         bool request_epilogue = gate.prologue();
+        
         // If the prologue indicates that an epilogue is necessary, relay it
         if (request_epilogue) {
             guard.relay(&gate);

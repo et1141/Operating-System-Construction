@@ -9,9 +9,6 @@
 /*****************************************************************************/
 
 #include <thread/scheduler.h>
-#include "user/globals.h"
-#include "guard/secure.h"
-
 
 Scheduler::Scheduler() : Dispatcher() {
     // Initialization if needed
@@ -40,6 +37,7 @@ void Scheduler::exit() {
 }
 
 void Scheduler::kill(Entrant& that) {
+
     //add edge case when process calling kill to itself
     ready_list.remove(&that);
     delete &that; // Clean up the memory
