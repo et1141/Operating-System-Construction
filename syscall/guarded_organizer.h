@@ -16,10 +16,18 @@
 #include "thread/organizer.h"
 
 class Guarded_Organizer : public Organizer {
+private:
+	Guarded_Organizer(const Guarded_Organizer &copy); // prevent copying
 public:
 	Guarded_Organizer() {}
-	Guarded_Organizer(const Guarded_Organizer &copy) = delete; // prevent copying
-/* Add your code here */ 
+	// This method registers the process that with the scheduler.
+	void ready (Thread& that);
+	// This method allows a process to terminate itself.
+	void exit ();
+	// This method allows one process to terminate another (that).
+	void kill (Thread& that);
+	// This method can be used to trigger a process switch.
+	void resume ();
 };
 
 #endif
