@@ -12,12 +12,12 @@
 #define __thread_include__
 
 /* Add your code here */ 
- #include "thread/entrant.h"
-class Thread : public Entrant {
+#include "thread/customer.h"
+class Thread : public Customer {
 public:
     // Constructor that initializes the Thread with a top-of-stack pointer
 	Thread(const Thread &copy) = delete; // prevent copying
-    Thread(void* tos) : Entrant(tos) {}
+    Thread(void* tos) : Customer(tos){ } 
 };
 
 #endif
